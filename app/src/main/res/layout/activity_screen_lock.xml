@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center"
+    android:background="@android:color/black"
+    android:id="@+id/rlTextDescBlock"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/layout1"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30px">
+        <Button
+            android:id="@+id/active"
+            android:textSize="14.0sp"
+            android:textStyle="bold"
+            android:textColor="#ff5779a7"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40.0dip"
+            android:text="激活"
+            android:layout_weight="1.0" />
+        <Button
+            android:visibility="gone"
+            android:id="@+id/unactive"
+            android:layout_marginLeft="20dp"
+            android:textSize="14.0sp"
+            android:textStyle="bold"
+            android:textColor="#ff5779a7"
+            android:paddingRight="10.0dip"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="40.0dip"
+            android:text="禁用"
+            android:layout_weight="1.0" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:layout_below="@id/layout1"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30px">
+        <Button
+            android:id="@+id/syslock"
+            android:textSize="14.0sp"
+            android:textStyle="bold"
+            android:textColor="#ff5779a7"
+            android:background="@drawable/detail_redirect_button_bg"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10.0dip"
+            android:text="系统锁屏"
+            android:layout_weight="1.0" />
+        <Button
+            android:id="@+id/custlock"
+            android:textSize="14.0sp"
+            android:textStyle="bold"
+            android:textColor="#ff5779a7"
+            android:background="@drawable/detail_comment_button_bg"
+            android:paddingRight="10.0dip"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10.0dip"
+            android:text="自定义锁屏"
+            android:layout_weight="1.0" />
+    </LinearLayout>
+</RelativeLayout>

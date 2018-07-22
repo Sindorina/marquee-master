@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.smartpoint.marquee">
+    <!--连接网络权限，用于执行云端语音能力 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <!--获取手机录音机使用权限，听写、识别、语义理解需要用到此权限 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <!--读取网络信息状态 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <!--获取当前wifi状态 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <!--允许程序改变网络连接状态 -->
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    <!--读取手机信息权限 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <!--读取联系人权限，上传联系人需要用到此权限 -->
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <!--外存储写权限，构建语法需要用到此权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!--外存储读权限，构建语法需要用到此权限 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <!--配置权限，用来记录应用配置信息 -->
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <!--手机定位信息，用来为语义等功能提供定位，提供更精准的服务-->
+    <!--定位信息是敏感信息，可通过Setting.setLocationEnable(false)关闭定位请求 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <!--如需使用人脸识别，还要添加：摄相头权限，拍照需要用到 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.DEVICE_POWER"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
+    <application
+        android:allowBackup="true"
+        android:name="com.smartpoint.MyApplication"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.RxJavaLearnActivity" />
+        <activity android:name=".activity.WebViewActivity" />
+        <activity android:name=".activity.VRActivity" />
+        <activity android:name=".activity.TencentWebViewActivity" />
+        <activity android:name=".activity.PickerViewActivity" />
+        <activity android:name=".activity.MediaPlayActivity" />
+        <activity android:name=".activity.ZxinActivity" />
+        <activity
+            android:name="com.tencent.smtt.sdk.VideoActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:alwaysRetainTaskState="true">
+            <intent-filter>
+                <action android:name="com.tencent.smtt.tbs.video.PLAY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.ContactActivity" />
+        <activity android:name=".activity.SQLiteActivity" />
+        <activity android:name=".activity.LitePalActivity" />
+        <activity android:name=".activity.DecodeActivity" />
+        <activity android:name=".activity.JniActivity" />
+        <activity android:name=".activity.ScreenLockActivity" />
+        <activity android:name=".activity.CountDownTimerActivity" />
+        <activity android:name=".activity.GoogleActivity" />
+        <activity android:name=".activity.DistinctActivity" />
+        <activity android:name=".activity.SvgActivity" />
+        <activity android:name=".activity.SurfaceViewActivity" />
+        <activity android:name=".activity.LineChartsActivity" />
+        <activity android:name=".activity.ColumnChartActivity" />
+        <activity android:name=".activity.WebAppActivity" />
+        <activity android:name=".activity.FontActivity" />
+        <activity android:name=".activity.PingTestActivity" />
+        <activity android:name=".activity.Decode2Activity" />
+        <activity android:name=".activity.WebSocketActivity" />
+        <activity android:name=".activity.WaterWaveActivity" />
+        <activity android:name=".activity.BaiDuVoiceMadeActivity" />
+        <activity android:name=".activity.LeonidsActivity" />
+        <activity android:name=".activity.ExplosionAnimationActivity" />
+        <activity android:name=".activity.ValueAnimatorActivity" />
+        <activity android:name=".activity.FingerprintsRecogActivity" />
+        <activity android:name=".activity.ChoosePictureActivity" />
+        <activity android:name="me.iwf.photopicker.PhotoPickerActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            />
+
+        <activity android:name="me.iwf.photopicker.PhotoPagerActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+
+
+        <!-- 设备管理 -->
+        <receiver android:name=".AdminReceiver"
+            android:permission="android.permission.BIND_DEVICE_ADMIN">
+            <meta-data android:name="android.app.device_admin"
+                android:resource="@xml/lock_screen" />
+            <intent-filter>
+                <action
+                    android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+            </intent-filter>
+        </receiver>
+        <meta-data
+            android:name="com.baidu.speech.APP_ID"
+            android:value="11164859" />
+        <meta-data
+            android:name="com.baidu.speech.API_KEY"
+            android:value="KQqvRCdUhyE79spXtXEf1cuo" />
+        <meta-data
+            android:name="com.baidu.speech.SECRET_KEY"
+            android:value="dcd5db8eadc7d59dce926b0f5febea39" />
+    </application>
+
+</manifest>

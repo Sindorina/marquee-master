@@ -1,0 +1,89 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.smartpoint.marquee"
+        minSdkVersion 19
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        externalNativeBuild {
+            cmake {
+                cppFlags ""
+            }
+        }
+    }
+    //配置keystore签名
+    signingConfigs {
+        debug {
+            storeFile file("D:/workSpace/marquee-master/marquee-master/app/src/main/java/com/key/key.store")
+            storePassword "cl87654321"
+            keyAlias "key23"
+            keyPassword "cl87654321"
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
+        }
+    }
+    allprojects {
+        repositories {
+            maven { url 'https://jitpack.io' }
+        }
+    }
+    externalNativeBuild {
+        cmake {
+            path 'CMakeLists.txt'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    api 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    api 'io.reactivex.rxjava2:rxjava:2.0.5'
+    api 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.3@aar'
+    api 'com.squareup.retrofit2:retrofit:2.3.0'
+    api 'com.squareup.retrofit2:converter-gson:2.3.0'
+    api 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    api 'com.squareup.okhttp3:logging-interceptor:3.8.1'
+    api 'com.google.vr:sdk-panowidget:1.80.0'
+    api 'com.contrarywind:Android-PickerView:4.1.3'
+    api 'com.github.CN-ZPH:weibo360panorama:v1.0.1'
+    api 'com.gjiazhe:wavesidebar:1.3'
+    api 'com.daimajia.numberprogressbar:library:1.4@aar'
+    api 'com.android.support:design:27.1.1'
+    api 'org.litepal.android:core:1.6.1'
+    api 'com.plattysoft.leonids:LeonidsLib:1.3.2'
+    api 'com.github.lecho:hellocharts-android:v1.5.8'
+    api 'com.koushikdutta.async:androidasync:2.+'
+    api 'com.skyfishjy.ripplebackground:library:1.0.1'
+    api 'com.youth.banner:banner:1.4.10'
+    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-12'
+    //最新版本
+    implementation files('src/main/jniLibs/jna.jar')
+    implementation files('src/main/jniLibs/android-armv7.jar')
+    implementation files('src/main/jniLibs/tbs.jar')
+    implementation project(':zxing')
+    implementation files('src/main/jniLibs/com.baidu.tts_2.3.2.20180419_5a5fec8.jar')
+    implementation files('src/main/jniLibs/bdasr_V3_20180320_9066860.jar')
+    implementation 'com.github.bumptech.glide:glide:4.1.1'
+    implementation  'com.zwh:RxFingerPrinter:1.1.0'
+    implementation 'com.kyleduo.switchbutton:library:2.0.0'
+    implementation 'me.iwf.photopicker:PhotoPicker:0.9.12@aar'
+
+}

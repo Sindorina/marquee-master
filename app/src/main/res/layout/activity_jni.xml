@@ -1,0 +1,87 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    >
+    <RelativeLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:text="安装更新"
+            android:visibility="gone"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/updataBtn"/>
+
+        <Button
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/reUploadBtn"
+            android:text="重新下载"
+            android:visibility="gone"
+            android:layout_marginTop="30dp"
+            android:layout_below="@+id/updataBtn"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"/>
+
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tv"
+            android:id="@+id/pb"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv"
+            android:gravity="center"
+            android:text="初始化"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Version"
+            android:id="@+id/versionTV"
+            android:gravity="center"
+            android:visibility="gone"
+            android:layout_below="@+id/tv"/>
+
+        <Button
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/setWifiBtn"
+            android:text="设置网络"
+            android:layout_below="@+id/versionTV"
+            android:visibility="gone"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"/>
+
+        <WebView
+            android:id="@+id/mapView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFFFF"
+            android:visibility="gone">
+
+        </WebView>
+
+        <!--<Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/recrodBtn"
+            android:text="开始录音"/>-->
+    </RelativeLayout>
+    <EditText
+        android:id="@+id/editText"
+        android:focusableInTouchMode="true"
+        android:layout_width="0.1dp"
+        android:layout_height="0.1dp" />
+</LinearLayout>

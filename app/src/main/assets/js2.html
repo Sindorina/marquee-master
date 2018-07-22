@@ -1,0 +1,27 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Carson</title>
+    <script type="text/javascript">
+         function callAndroid(){
+            test.hello("js call android func hello");
+         }
+         function click1(){
+            window.AndroidJavaScript.hello('Hello World from html')
+         }
+         function click2(){
+            window.AndroidJavaScript.test('Hello World from html','value2')
+         }
+    </script>
+</head>
+<body>
+<div style="text-align:center;">
+    <button type="button" id="button1"
+            onclick="click1()">call android
+    </button>
+    <button type="button" id="button2"
+            onclick="click2()">call android2
+    </button>
+</div>
+</body>
+</html>
