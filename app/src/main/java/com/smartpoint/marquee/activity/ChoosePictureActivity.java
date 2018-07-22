@@ -2,12 +2,15 @@ package com.smartpoint.marquee.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.smartpoint.adapter.PictureChooseAdapter;
 import com.smartpoint.marquee.R;
 import com.smartpoint.marquee.base.BaseActivity;
-import com.smartpoint.photoPicker.NineGridView;
+import com.smartpoint.util.LogUtils;
 
 import java.util.ArrayList;
 
@@ -20,7 +23,9 @@ public class ChoosePictureActivity extends BaseActivity{
     }
 
     private TextView textView;//添加图片
-    private NineGridView grid;
+    private RecyclerView recyclerView_pic;
+    private PictureChooseAdapter adapter;
+    private ArrayList<String> listPicture;
     @Override
     public int getContentViewId() {
         return R.layout.activity_choose_picture;
@@ -28,14 +33,17 @@ public class ChoosePictureActivity extends BaseActivity{
 
     @Override
     public void beforeInitView() {
-
+        listPicture =new ArrayList<>();
     }
 
     @Override
     public void initView() {
         textView = findViewByIdNoCast(R.id.textView);
-        grid = findViewByIdNoCast(R.id.grid);
         textView.setOnClickListener(this);
+        recyclerView_pic = findViewByIdNoCast(R.id.recyclerView_pic);
+        adapter = new PictureChooseAdapter(listPicture,R.layout.choose_picture_item);
+        recyclerView_pic.setLayoutManager(new GridLayoutManager(this,5));
+        recyclerView_pic.setAdapter(adapter);
     }
 
     @Override
@@ -48,7 +56,7 @@ public class ChoosePictureActivity extends BaseActivity{
         switch (v.getId()){
             case R.id.textView:
                 PhotoPicker.builder()
-                        .setPhotoCount(9)
+                        .setPhotoCount(10)
                         .setShowCamera(true)
                         .setShowGif(true)
                         .setPreviewEnabled(false)
@@ -63,7 +71,12 @@ public class ChoosePictureActivity extends BaseActivity{
             if (data != null) {
                 ArrayList<String> photos =
                         data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);
-                grid.setUrlList(photos);
+                for (String str:photos){
+                    LogUtils.logE("ChoosePictureActivity","图片路径-->"+str);
+                }
+                //adapter.getContacts().clear();
+                adapter.getContacts().addAll(photos);
+                adapter.notifyDataSetChanged();
             }
         }
     }

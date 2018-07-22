@@ -35,7 +35,7 @@ public class NineGridView extends NineGridLayout {
     @Override
     protected boolean displayOneImage(final ImageView imageView, String url, final int parentWidth) {
         if (url.startsWith(mSdCardPath)) {
-            loader.displayImage(MyApplication.newInstance(),"file://" + url,imageView);
+            loader.displayImage(MyApplication.newInstance(), url,imageView);
         } else {
             loader.displayImage(MyApplication.newInstance(),"file://" + url,imageView);
         }
@@ -47,7 +47,7 @@ public class NineGridView extends NineGridLayout {
     @Override
     protected void displayImage(ImageView imageView, String url) {
         if (url.startsWith(mSdCardPath)) {
-            loader.displayImage(MyApplication.newInstance(),"file://" + url,imageView);
+            loader.displayImage(MyApplication.newInstance(),url,imageView);
         } else {
             loader.displayImage(MyApplication.newInstance(),"file://" + url,imageView);
         }
