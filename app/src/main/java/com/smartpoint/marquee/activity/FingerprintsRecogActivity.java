@@ -22,8 +22,6 @@ import com.smartpoint.marquee.R;
 import com.smartpoint.marquee.base.BaseActivity;
 import com.smartpoint.util.LogUtils;
 
-import zwh.com.lib.RxFingerPrinter;
-
 /**
  * Created by Administrator on 2018/7/19
  * 邮箱 18780569202@163.com
@@ -38,7 +36,6 @@ public class FingerprintsRecogActivity extends BaseActivity {
     private KeyguardManager keyguardManager;
     private Button mCancelBtn,mStartBtn;
     private TextView textView;
-    private RxFingerPrinter rxFingerPrinter;
     public static void start(Activity activity) {
         Intent intent = new Intent(activity, FingerprintsRecogActivity.class);
         activity.startActivity(intent);
@@ -66,8 +63,6 @@ public class FingerprintsRecogActivity extends BaseActivity {
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void initData() {
-        findViewByIdNoCast(R.id.btn1).setOnClickListener(this);
-        findViewByIdNoCast(R.id.btn2).setOnClickListener(this);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -85,26 +80,14 @@ public class FingerprintsRecogActivity extends BaseActivity {
                 }
                 if (!fingerprintManager.hasEnrolledFingerprints()) {
                     Toast.makeText(FingerprintsRecogActivity.this, "请录入指纹    ", Toast.LENGTH_SHORT).show();
-                    if (fingerprintManager.isHardwareDetected()) {
-                        Toast.makeText(FingerprintsRecogActivity.this, "手机硬件不支持指纹识别", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    if (!keyguardManager.isKeyguardSecure()) {
-                        Toast.makeText(FingerprintsRecogActivity.this, "请开启屏幕锁", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    if (!fingerprintManager.hasEnrolledFingerprints()) {
-                        Toast.makeText(FingerprintsRecogActivity.this, "请录入指纹    ", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    CryptoObjectHelper cryptoObjectHelper = null;
-                    try {
-                        cryptoObjectHelper = new CryptoObjectHelper();
-                        fingerprintManager.authenticate(cryptoObjectHelper.buildCryptoObject(), 0,
-                                cancellationSignal, callback, null);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                }
+                CryptoObjectHelper cryptoObjectHelper = null;
+                try {
+                    cryptoObjectHelper = new CryptoObjectHelper();
+                    fingerprintManager.authenticate(cryptoObjectHelper.buildCryptoObject(), 0,
+                            cancellationSignal, callback, null);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 break;
             case R.id.btn2://取消识别

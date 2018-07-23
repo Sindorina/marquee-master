@@ -82,7 +82,6 @@ dependencies {
     implementation files('src/main/jniLibs/com.baidu.tts_2.3.2.20180419_5a5fec8.jar')
     implementation files('src/main/jniLibs/bdasr_V3_20180320_9066860.jar')
     implementation 'com.github.bumptech.glide:glide:4.1.1'
-    implementation  'com.zwh:RxFingerPrinter:1.1.0'
     implementation 'com.kyleduo.switchbutton:library:2.0.0'
     implementation 'me.iwf.photopicker:PhotoPicker:0.9.12@aar'
 

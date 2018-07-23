@@ -5,17 +5,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 import android.webkit.JavascriptInterface;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.smartpoint.marquee.R;
+import com.smartpoint.marquee.base.BaseActivity;
 import com.smartpoint.view.ProgressWebView;
 import com.tencent.smtt.sdk.WebSettings;
 
-public class TencentWebViewActivity extends AppCompatActivity {
+public class TencentWebViewActivity extends BaseActivity {
     private static String webUrl ;
     private ProgressWebView webView;
+    private TextView title;
     private String testUrl1 = "https://signposs1.oss-cn-shenzhen.aliyuncs.com/demo/test/index.html";
     private String testURL2 = "https://project.signp.cn/entrance/main?s=LgyoCS83s+lmEK1O/FGkcHj/HzQrrxsznWkNZNqf2r4=&f=7V3uqkwei7Z0WQADK/e50MCTY+vQt/gcwnN9hbV0IMI=&tpl=21.5";
     private String testUrl = "https://ifs.cloudindoormap.com/?floorid=BCD5A746-CFE0-448F-A7C8-08646A5B96F6&mark=AREA-20170918-14:17:57:23-6262&pointmove=undefined&from=singlemessage";
@@ -28,21 +34,48 @@ public class TencentWebViewActivity extends AppCompatActivity {
         Intent intent = new Intent(activity, TencentWebViewActivity.class);
         activity.startActivity(intent);
     }
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tencent_webview);
+    public int getContentViewId() {
+        return R.layout.activity_tencent_webview;
+    }
+
+    @Override
+    public void beforeInitView() {
+
+    }
+
+    @Override
+    public void initView() {
         webView = findViewById(R.id.tencentWebView);
         initWeb();
         //webView.addJavascriptInterface(new AndroidJavaScript(), "test");
-        webView.addJavascriptInterface(new AndroidJavaScript(),"AndroidJavaScript");
-        webView.loadUrl("file:///android_asset/js2.html");
         //webView.loadUrl(testUrl1);
-//        if (TextUtils.isEmpty(webUrl)){
-//        }else {
-//            webView.loadUrl(webUrl);
-//        }
+        if (TextUtils.isEmpty(webUrl)){
+            webView.addJavascriptInterface(new AndroidJavaScript(),"AndroidJavaScript");
+            webView.loadUrl("file:///android_asset/js2.html");
+        }else {
+            webView.loadUrl(webUrl);
+        }
+        findViewByIdNoCast(R.id.back).setOnClickListener(this);
+        title = findViewByIdNoCast(R.id.title);
+        title.setText("网页浏览");
     }
+
+    @Override
+    public void initData() {
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.back:
+                finish();
+                break;
+        }
+    }
+
     public class AndroidJavaScript{
         @JavascriptInterface
         public void hello(String msg){

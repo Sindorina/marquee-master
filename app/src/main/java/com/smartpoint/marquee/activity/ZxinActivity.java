@@ -85,6 +85,9 @@ public class ZxinActivity extends AppCompatActivity {
             if (data != null) {
                 String content = data.getStringExtra(CodeUtils.RESULT_STRING);
                 textView.setText("扫描结果： " + content);
+                if (content.startsWith("http")){
+                    TencentWebViewActivity.start(ZxinActivity.this,content);
+                }
             }
         }
     }
