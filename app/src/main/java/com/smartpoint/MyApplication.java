@@ -8,6 +8,8 @@ import com.uuzuche.lib_zxing.ZApplication;
 
 import org.litepal.LitePal;
 
+import cn.jpush.android.api.JPushInterface;
+
 
 public class MyApplication extends ZApplication {
     private Activity mShowActivity = null;//当前显示activity
@@ -22,9 +24,6 @@ public class MyApplication extends ZApplication {
     public void onCreate() {
         //SpeechUtility.createUtility(this, SpeechConstant.APPID +"="+ Constant.APP_KEY);
         super.onCreate();
-//        if (!LeakCanary.isInAnalyzerProcess(this)){
-//            LeakCanary.install(this);
-//        }
         //初始化X5内核
         QbSdk.initX5Environment(this, new QbSdk.PreInitCallback() {
             @Override
@@ -41,6 +40,8 @@ public class MyApplication extends ZApplication {
         });
         mBaseApp = this;
         LitePal.initialize(this);//初始化litePal
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
     }
     private volatile static MyApplication mBaseApp;
     public static MyApplication newInstance(){

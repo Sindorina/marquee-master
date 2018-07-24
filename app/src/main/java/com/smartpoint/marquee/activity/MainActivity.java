@@ -1,8 +1,10 @@
 package com.smartpoint.marquee.activity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.AudioManager;
@@ -16,6 +18,7 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -27,9 +30,11 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kyleduo.switchbutton.SwitchButton;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -45,6 +50,7 @@ import com.smartpoint.marquee.AEStool;
 import com.smartpoint.marquee.MD5Util;
 import com.smartpoint.marquee.R;
 import com.smartpoint.marquee.base.BaseActivity;
+import com.smartpoint.util.ExampleUtil;
 import com.smartpoint.util.LogUtils;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -63,6 +69,7 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -71,10 +78,13 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 public class MainActivity extends BaseActivity {
+    public static final String TAG = "MainActivity";
     public static final String METHOD_GET = "GET";
     public String BaseUri = "https://apiequipment.signp.cn";
     public String key = "56a8d122ec0d330d6d9f541b459e43e1";
@@ -93,6 +103,8 @@ public class MainActivity extends BaseActivity {
     private MediaPlayer mediaPlayer;
     private String[]bgms = new String[3];
     private int curBgm = 0;//当前bgm
+    public static final String PUSH_KEY = "alias";
+    private String id = "1104a89792ff7868e10";
     @Override
     public int getContentViewId() {
         return R.layout.activity_main;
@@ -103,11 +115,10 @@ public class MainActivity extends BaseActivity {
         checkPermission();
         String path = Environment.getExternalStorageDirectory().getAbsolutePath()+"/music/";
         bgms[0] = path+"bg1.mp3";bgms[1] = path+"bg2.mp3";bgms[2] = path+"bg3.mp3";
-//        File file = new File(path);
-//        String [] arr = file.list();
-//        for (String s:arr){
-//            LogUtils.logE("MainActivity","文件-->"+s);
-//        }
+        boolean hasAlias = getSharedPreferences(PUSH_KEY,MODE_PRIVATE).getBoolean(PUSH_KEY,false);
+        if (!hasAlias){
+            setAlias();
+        }
     }
 
     @Override
@@ -201,6 +212,10 @@ public class MainActivity extends BaseActivity {
         initBanner();
         initRefresh();
         initPlayer();
+        LogUtils.logE(TAG,"getRegistrationID-->"+JPushInterface.getRegistrationID(this));
+        String appKey = ExampleUtil.getAppKey(getApplicationContext());
+        if (null == appKey) appKey = "AppKey异常";
+        LogUtils.logE(TAG,"appKey-->"+appKey);
     }
 
     private String getInfo() {
@@ -725,4 +740,55 @@ public class MainActivity extends BaseActivity {
             }
         });
     }
+    // 这是来自 JPush Example 的设置别名的 Activity 里的代码。一般 App 的设置的调用入口，在任何方便的地方调用都可以。
+    private void setAlias() {
+        String alias = "liangkai";
+        // 调用 Handler 来异步设置别名
+        mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, alias));
+    }
+    private final TagAliasCallback mAliasCallback = new TagAliasCallback() {
+        @Override
+        public void gotResult(int code, String alias, Set<String> tags) {
+            String logs ;
+            switch (code) {
+                case 0:
+                    logs = "Set tag and alias success";
+                    Log.i(TAG, logs);
+                    // 建议这里往 SharePreference 里写一个成功设置的状态。成功设置一次后，以后不必再次设置了。
+                    SharedPreferences sp = getSharedPreferences("jpush",MODE_PRIVATE);
+                    sp.edit().putBoolean(PUSH_KEY,true).apply();
+                    break;
+                case 6002:
+                    logs = "Failed to set alias and tags due to timeout. Try again after 60s.";
+                    Log.i(TAG, logs);
+                    // 延迟 60 秒来调用 Handler 设置别名
+                    mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_SET_ALIAS, alias), 1000 * 60);
+                    break;
+                default:
+                    logs = "Failed with errorCode = " + code;
+                    Log.e(TAG, logs);
+            }
+            ExampleUtil.showToast(logs, getApplicationContext());
+        }
+    };
+    private static final int MSG_SET_ALIAS = 1001;
+    @SuppressLint("HandlerLeak")
+    private final Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(android.os.Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case MSG_SET_ALIAS:
+                    Log.d(TAG, "Set alias in handler.");
+                    // 调用 JPush 接口来设置别名。
+                    JPushInterface.setAliasAndTags(getApplicationContext(),
+                            (String) msg.obj,
+                            null,
+                            mAliasCallback);
+                    break;
+                default:
+                    Log.i(TAG, "Unhandled msg - " + msg.what);
+            }
+        }
+    };
 }
