@@ -279,14 +279,13 @@ public class MainActivity extends BaseActivity {
             sslContext.init(null, trustManagers, new SecureRandom());
             HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.getSocketFactory());
             HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
+                @SuppressLint("BadHostnameVerifier")
                 @Override
                 public boolean verify(String hostname, SSLSession session) {
                     return true;
                 }
             });
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (KeyManagementException e) {
+        } catch (NoSuchAlgorithmException | KeyManagementException e) {
             e.printStackTrace();
         }
     }
@@ -649,6 +648,12 @@ public class MainActivity extends BaseActivity {
                     case 19://图片选择
                         ChoosePictureActivity.start(MainActivity.this);
                         break;
+                    case 20://下载与毛玻璃圆角
+                        DownloadActivity.start(MainActivity.this);
+                        break;
+                    case 21://下载与毛玻璃圆角
+                        SideDeleteActivity.start(MainActivity.this);
+                        break;
                 }
             }
         });
@@ -682,6 +687,8 @@ public class MainActivity extends BaseActivity {
         listInfo.add("SVG");
         listInfo.add("指纹识别");
         listInfo.add("图片选择");
+        listInfo.add("毛玻璃与下载");
+        listInfo.add("侧滑删除");
         adapter1.getContacts().addAll(listInfo);
         adapter1.notifyDataSetChanged();
         smartRefreshLayout.finishLoadMore();

@@ -27,6 +27,7 @@ public class JniActivity extends AppCompatActivity {
     private Button reUploadBtn,setWifiBtn;
     private TextView tv,versionTV;
     private WebView mapView;
+    private String changeStr = "changeWords";
     public static void start(Activity activity) {
         Intent intent = new Intent(activity, JniActivity.class);
         activity.startActivity(intent);
@@ -36,16 +37,7 @@ public class JniActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jni);
         init();
-//        findViewById(R.id.btn).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                CLibrary.INSTANCE.printf("Hello, World/n");
-//            }
-//        });
-    }
-    public interface CLibrary  extends Library{
-        CLibrary INSTANCE = (CLibrary) Native.loadLibrary((Platform.isAndroid()?"msvcrt":"c"),CLibrary.class);
-        void printf(String format, Object... args);
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -73,6 +65,10 @@ public class JniActivity extends AppCompatActivity {
             case R.id.item5://jni
                 setVisable(false,false,true,false);
                 tv.setText(JniUtils.stringFromJNI());
+                return true;
+            case R.id.item6://文字设置规范
+                setVisable(false,false,true,false);
+                tv.setText(String.format(getString(R.string.change_replace),changeStr));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

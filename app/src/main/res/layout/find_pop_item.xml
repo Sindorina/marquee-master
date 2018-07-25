@@ -6,7 +6,7 @@
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:textColor="@android:color/black"
         android:gravity="center"
         android:background="@drawable/btn_select_bg"

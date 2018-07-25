@@ -86,4 +86,6 @@ dependencies {
     implementation 'me.iwf.photopicker:PhotoPicker:0.9.12@aar'
     implementation files('src/main/jniLibs/jcore-android-1.2.3.jar')
     implementation files('src/main/jniLibs/jpush-android-3.1.5.jar')
+    implementation 'jp.wasabeef:glide-transformations:3.0.1'
+    implementation 'com.yanzhenjie:recyclerview-swipe:1.1.4'
 }

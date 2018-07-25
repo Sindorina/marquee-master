@@ -10,4 +10,6 @@
         android:title="提示信息"/>
     <item android:id="@+id/item5"
         android:title="jni"/>
+    <item android:id="@+id/item6"
+        android:title="文字设置规范"/>
 </menu>

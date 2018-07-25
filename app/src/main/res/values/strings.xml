@@ -9,4 +9,6 @@
     <string name="not_support">手机硬件不支持指纹识别</string>
     <string name="title_font">满江红</string>
     <string name="back">返回</string>
+    <string name="change_replace">文字设置规范%1$s</string>
+    <string name="blur">毛玻璃效果</string>
 </resources>
