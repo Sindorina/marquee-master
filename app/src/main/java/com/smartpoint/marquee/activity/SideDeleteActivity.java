@@ -3,12 +3,18 @@ package com.smartpoint.marquee.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.smartpoint.adapter.SideDeleteAdapter;
 import com.smartpoint.marquee.R;
 import com.smartpoint.marquee.base.BaseActivity;
@@ -48,6 +54,7 @@ public class SideDeleteActivity extends BaseActivity{
 
     @Override
     public void initView() {
+        smartRefreshLayout = findViewByIdNoCast(R.id.smartRefreshLayout);
         findViewByIdNoCast(R.id.back).setOnClickListener(this);
         recyclerView = findViewByIdNoCast(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -64,6 +71,24 @@ public class SideDeleteActivity extends BaseActivity{
             }
         });
         recyclerView.setAdapter(adapter);
+        smartRefreshLayout.setRefreshHeader(new ClassicsHeader(this));
+        smartRefreshLayout.setRefreshFooter(new ClassicsFooter(this));
+        smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                adapter.getContacts().clear();
+                adapter.getContacts().addAll(getData());
+                adapter.notifyDataSetChanged();
+            }
+        });
+        smartRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                adapter.getContacts().clear();
+                adapter.getContacts().addAll(getData());
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 
     @Override

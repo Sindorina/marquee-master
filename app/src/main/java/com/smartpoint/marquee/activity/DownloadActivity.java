@@ -85,7 +85,7 @@ public class DownloadActivity extends BaseActivity{
                 if (photos.size()>0){
                     MultiTransformation multi = new MultiTransformation(
                             new BlurTransformation(25),
-                            new RoundedCornersTransformation(128, 0, RoundedCornersTransformation.CornerType.ALL));
+                            new RoundedCornersTransformation(500, 0, RoundedCornersTransformation.CornerType.ALL));
                     Glide.with(this).load(photos.get(0))
                             .apply(bitmapTransform(multi))
                             .into(imageView);

@@ -654,6 +654,9 @@ public class MainActivity extends BaseActivity {
                     case 21://下载与毛玻璃圆角
                         SideDeleteActivity.start(MainActivity.this);
                         break;
+                    case 22://字体颜色文本
+                        RichEditorActivity.start(MainActivity.this);
+                        break;
                 }
             }
         });
@@ -689,6 +692,7 @@ public class MainActivity extends BaseActivity {
         listInfo.add("图片选择");
         listInfo.add("毛玻璃与下载");
         listInfo.add("侧滑删除");
+        listInfo.add("字体颜色文本");
         adapter1.getContacts().addAll(listInfo);
         adapter1.notifyDataSetChanged();
         smartRefreshLayout.finishLoadMore();
