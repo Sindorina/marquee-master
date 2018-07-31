@@ -190,6 +190,12 @@ public class MainActivity extends BaseActivity {
                     case 13://画图
                         ValueAnimatorActivity.start(MainActivity.this);
                         break;
+                    case 14://surfaceView画图
+                        SurfaceViewDrawActivity.start(MainActivity.this);
+                        break;
+                    case 15://surfaceView游戏
+                        SurfaceViewDrawActivity2.start(MainActivity.this);
+                        break;
                 }
             }
         });
@@ -496,6 +502,8 @@ public class MainActivity extends BaseActivity {
         list.add("粒子效果");
         list.add("view破坏效果");
         list.add("画图");
+        list.add("SurfaceView画画");
+        list.add("SurfaceView Game");
         return list;
     }
 
