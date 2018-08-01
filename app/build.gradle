@@ -76,6 +76,7 @@ dependencies {
     api 'com.youth.banner:banner:1.4.10'
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-12'
     //最新版本
+    implementation files('src/main/jniLibs/jna.jar')
     implementation files('src/main/jniLibs/android-armv7.jar')
     implementation files('src/main/jniLibs/tbs.jar')
     implementation project(':zxing')

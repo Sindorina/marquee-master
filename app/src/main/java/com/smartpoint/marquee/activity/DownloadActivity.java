@@ -9,12 +9,14 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.MultiTransformation;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.smartpoint.marquee.R;
 import com.smartpoint.marquee.base.BaseActivity;
 
 import java.util.ArrayList;
 
 import jp.wasabeef.glide.transformations.BlurTransformation;
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 import me.iwf.photopicker.PhotoPicker;
 
@@ -85,7 +87,7 @@ public class DownloadActivity extends BaseActivity{
                 if (photos.size()>0){
                     MultiTransformation multi = new MultiTransformation(
                             new BlurTransformation(25),
-                            new RoundedCornersTransformation(500, 0, RoundedCornersTransformation.CornerType.ALL));
+                            new CircleCrop());
                     Glide.with(this).load(photos.get(0))
                             .apply(bitmapTransform(multi))
                             .into(imageView);

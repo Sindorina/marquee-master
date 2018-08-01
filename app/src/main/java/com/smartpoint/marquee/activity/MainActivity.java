@@ -18,6 +18,7 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -29,9 +30,11 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kyleduo.switchbutton.SwitchButton;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -186,6 +189,12 @@ public class MainActivity extends BaseActivity {
                         break;
                     case 13://画图
                         ValueAnimatorActivity.start(MainActivity.this);
+                        break;
+                    case 14://surfaceView画图
+                        SurfaceViewDrawActivity.start(MainActivity.this);
+                        break;
+                    case 15://surfaceView游戏
+                        SurfaceViewDrawActivity2.start(MainActivity.this);
                         break;
                 }
             }
@@ -494,6 +503,8 @@ public class MainActivity extends BaseActivity {
         list.add("粒子效果");
         list.add("view破坏效果");
         list.add("画图");
+        list.add("SurfaceView画画");
+        list.add("SurfaceView Game");
         return list;
     }
 
@@ -649,7 +660,7 @@ public class MainActivity extends BaseActivity {
                     case 20://下载与毛玻璃圆角
                         DownloadActivity.start(MainActivity.this);
                         break;
-                    case 21://下载与毛玻璃圆角
+                    case 21://侧滑删除
                         SideDeleteActivity.start(MainActivity.this);
                         break;
                     case 22://字体颜色文本
