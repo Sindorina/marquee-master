@@ -659,11 +659,14 @@ public class MainActivity extends BaseActivity {
                     case 20://下载与毛玻璃圆角
                         DownloadActivity.start(MainActivity.this);
                         break;
-                    case 21://下载与毛玻璃圆角
+                    case 21://侧滑删除
                         SideDeleteActivity.start(MainActivity.this);
                         break;
                     case 22://字体颜色文本
                         RichEditorActivity.start(MainActivity.this);
+                        break;
+                    case 23://SVGA动画
+                        SvgaActivity.start(MainActivity.this);
                         break;
                 }
             }
@@ -701,6 +704,7 @@ public class MainActivity extends BaseActivity {
         listInfo.add("毛玻璃与下载");
         listInfo.add("侧滑删除");
         listInfo.add("字体颜色文本");
+        listInfo.add("SVGA动画");
         adapter1.getContacts().addAll(listInfo);
         adapter1.notifyDataSetChanged();
         smartRefreshLayout.finishLoadMore();
