@@ -18,7 +18,6 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -30,11 +29,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.kyleduo.switchbutton.SwitchButton;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -88,7 +85,7 @@ public class MainActivity extends BaseActivity {
     public static final String METHOD_GET = "GET";
     public String BaseUri = "https://apiequipment.signp.cn";
     public String key = "56a8d122ec0d330d6d9f541b459e43e1";
-    private TextView test,textView;
+    private TextView test, textView;
     private StringBuilder stringBuilder1 = new StringBuilder();
     View view;//底部弹出的dialog的显示View
     private boolean lightSwitch = false;
@@ -99,12 +96,13 @@ public class MainActivity extends BaseActivity {
     private RecyclerView recyclerView;
     // 抽屉菜单对象
     private ActionBarDrawerToggle drawerbar;
-    private SwitchButton switchButton ;
+    private SwitchButton switchButton;
     private MediaPlayer mediaPlayer;
-    private String[]bgms = new String[3];
+    private String[] bgms = new String[3];
     private int curBgm = 0;//当前bgm
     public static final String PUSH_KEY = "alias";
     private String id = "1104a89792ff7868e10";
+
     @Override
     public int getContentViewId() {
         return R.layout.activity_main;
@@ -113,10 +111,12 @@ public class MainActivity extends BaseActivity {
     @Override
     public void beforeInitView() {
         checkPermission();
-        String path = Environment.getExternalStorageDirectory().getAbsolutePath()+"/music/";
-        bgms[0] = path+"bg1.mp3";bgms[1] = path+"bg2.mp3";bgms[2] = path+"bg3.mp3";
-        boolean hasAlias = getSharedPreferences(PUSH_KEY,MODE_PRIVATE).getBoolean(PUSH_KEY,false);
-        if (!hasAlias){
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/music/";
+        bgms[0] = path + "bg1.mp3";
+        bgms[1] = path + "bg2.mp3";
+        bgms[2] = path + "bg3.mp3";
+        boolean hasAlias = getSharedPreferences(PUSH_KEY, MODE_PRIVATE).getBoolean(PUSH_KEY, false);
+        if (!hasAlias) {
             setAlias();
         }
     }
@@ -134,14 +134,14 @@ public class MainActivity extends BaseActivity {
         switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
-                    LogUtils.logE("MainActivity","打开");
+                if (isChecked) {
+                    LogUtils.logE("MainActivity", "打开");
                     playMusic(curBgm);
-                }else {
-                    if (mediaPlayer.isPlaying()){
+                } else {
+                    if (mediaPlayer.isPlaying()) {
                         mediaPlayer.stop();
                     }
-                    LogUtils.logE("MainActivity","关闭");
+                    LogUtils.logE("MainActivity", "关闭");
                 }
             }
         });
@@ -218,10 +218,10 @@ public class MainActivity extends BaseActivity {
         initBanner();
         initRefresh();
         initPlayer();
-        LogUtils.logE(TAG,"getRegistrationID-->"+JPushInterface.getRegistrationID(this));
+        LogUtils.logE(TAG, "getRegistrationID-->" + JPushInterface.getRegistrationID(this));
         String appKey = ExampleUtil.getAppKey(getApplicationContext());
         if (null == appKey) appKey = "AppKey异常";
-        LogUtils.logE(TAG,"appKey-->"+appKey);
+        LogUtils.logE(TAG, "appKey-->" + appKey);
     }
 
     private String getInfo() {
@@ -448,7 +448,7 @@ public class MainActivity extends BaseActivity {
                     @Override
                     public void onNext(Permission permission) {
                         if (permission.granted) {
-                           // install(MainActivity.this, Environment.getExternalStorageDirectory().getAbsolutePath() + "/123.apk");
+                            // install(MainActivity.this, Environment.getExternalStorageDirectory().getAbsolutePath() + "/123.apk");
                         } else if (permission.shouldShowRequestPermissionRationale) {
                             return;
                         } else {
@@ -524,6 +524,7 @@ public class MainActivity extends BaseActivity {
         };
         drawerLayout.setDrawerListener(drawerbar);
     }
+
     //获取Android手机cpu信息
     private String getCpuInfo() {
         String str1 = "/proc/cpuinfo";
@@ -548,7 +549,8 @@ public class MainActivity extends BaseActivity {
         Log.e("OST", "cpu频率-->" + cpuInfo[1]);
         return cpuInfo[0];
     }
-    private void initBanner(){
+
+    private void initBanner() {
         list.add("http://pic5.photophoto.cn/20071228/0034034901778224_b.jpg");
         list.add("http://pic21.photophoto.cn/20111106/0020032891433708_b.jpg");
         list.add("http://pic9.photophoto.cn/20081128/0033033999061521_b.jpg");
@@ -563,12 +565,13 @@ public class MainActivity extends BaseActivity {
         banner.setImages(list);
         banner.start();
     }
-    private void initRefresh(){
+
+    private void initRefresh() {
         list = new ArrayList<>();
         recyclerView = findViewByIdNoCast(R.id.recyclerView);
         smartRefreshLayout = findViewByIdNoCast(R.id.smartRefreshLayout);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter1 = new RefreshAdapter(list,R.layout.find_pop_item);
+        adapter1 = new RefreshAdapter(list, R.layout.find_pop_item);
         recyclerView.setAdapter(adapter1);
         smartRefreshLayout.setRefreshHeader(new ClassicsHeader(this));
         smartRefreshLayout.setRefreshFooter(new ClassicsFooter(this));
@@ -590,7 +593,7 @@ public class MainActivity extends BaseActivity {
         adapter1.setOnItemClick(new RefreshAdapter.OnItemClick() {
             @Override
             public void clickItem(int position) {
-                switch (position){
+                switch (position) {
                     case 0://webView
                         WebViewActivity.start(MainActivity.this);
                         break;
@@ -672,10 +675,14 @@ public class MainActivity extends BaseActivity {
                     case 24://MapBox
                         MapBoxActivity.start(MainActivity.this);
                         break;
+                    case 25://SVGA
+                        SvgaActivity.start(MainActivity.this);
+                        break;
                 }
             }
         });
     }
+
     private RefreshAdapter adapter1;
     private Banner banner;
     private List<String> list = new ArrayList<>();
@@ -683,7 +690,7 @@ public class MainActivity extends BaseActivity {
     /**
      * 设置功能列表数据
      */
-    private void setFuncInfo(){
+    private void setFuncInfo() {
         List<String> listInfo = new ArrayList<>();
         listInfo.add("webView");
         listInfo.add("vr全景");
@@ -710,25 +717,28 @@ public class MainActivity extends BaseActivity {
         listInfo.add("字体颜色文本");
         listInfo.add("讯飞语音AIUI");
         listInfo.add("MapBox");
+        listInfo.add("SVGA");
         adapter1.getContacts().addAll(listInfo);
         adapter1.notifyDataSetChanged();
         smartRefreshLayout.finishLoadMore();
         smartRefreshLayout.finishRefresh();
     }
+
     //打开弹出框
-    private void openPopWindow(String info){
-        View view = LayoutInflater.from(this).inflate(R.layout.no_content_show,null,false);
-        PopupWindow popupWindow = new PopupWindow(view,400,200);
+    private void openPopWindow(String info) {
+        View view = LayoutInflater.from(this).inflate(R.layout.no_content_show, null, false);
+        PopupWindow popupWindow = new PopupWindow(view, 400, 200);
         popupWindow.setFocusable(true);
         popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         popupWindow.setOutsideTouchable(true);
         popupWindow.setAnimationStyle(R.style.mypopwindow_anim_style);
-        popupWindow.showAtLocation(drawerLayout, Gravity.CENTER,0,0);
+        popupWindow.showAtLocation(drawerLayout, Gravity.CENTER, 0, 0);
         textView = view.findViewById(R.id.textView);
         textView.setText(info);
     }
+
     //播放音乐
-    private void playMusic(int index){
+    private void playMusic(int index) {
         this.curBgm = index;
         mediaPlayer.reset();
         try {
@@ -746,7 +756,8 @@ public class MainActivity extends BaseActivity {
             e.printStackTrace();
         }
     }
-    private void initPlayer(){
+
+    private void initPlayer() {
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
             @Override
@@ -758,33 +769,35 @@ public class MainActivity extends BaseActivity {
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                if (curBgm==2){
+                if (curBgm == 2) {
                     playMusic(0);
                     curBgm = 0;
-                }else {
-                    playMusic(curBgm+1);
+                } else {
+                    playMusic(curBgm + 1);
                     curBgm++;
                 }
             }
         });
     }
+
     // 这是来自 JPush Example 的设置别名的 Activity 里的代码。一般 App 的设置的调用入口，在任何方便的地方调用都可以。
     private void setAlias() {
         String alias = "liangkai";
         // 调用 Handler 来异步设置别名
         mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, alias));
     }
+
     private final TagAliasCallback mAliasCallback = new TagAliasCallback() {
         @Override
         public void gotResult(int code, String alias, Set<String> tags) {
-            String logs ;
+            String logs;
             switch (code) {
                 case 0:
                     logs = "Set tag and alias success";
                     Log.i(TAG, logs);
                     // 建议这里往 SharePreference 里写一个成功设置的状态。成功设置一次后，以后不必再次设置了。
-                    SharedPreferences sp = getSharedPreferences("jpush",MODE_PRIVATE);
-                    sp.edit().putBoolean(PUSH_KEY,true).apply();
+                    SharedPreferences sp = getSharedPreferences("jpush", MODE_PRIVATE);
+                    sp.edit().putBoolean(PUSH_KEY, true).apply();
                     break;
                 case 6002:
                     logs = "Failed to set alias and tags due to timeout. Try again after 60s.";

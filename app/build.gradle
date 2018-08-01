@@ -92,4 +92,5 @@ dependencies {
     implementation files('src/main/jniLibs/AIUI.jar')
     implementation files('src/main/jniLibs/jna.jar')
     implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:6.3.0'
+    api 'com.github.yyued:SVGAPlayer-Android:2.0.3'
 }
