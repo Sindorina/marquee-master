@@ -79,6 +79,7 @@ public class SideDeleteActivity extends BaseActivity{
                 adapter.getContacts().clear();
                 adapter.getContacts().addAll(getData());
                 adapter.notifyDataSetChanged();
+                smartRefreshLayout.finishRefresh();
             }
         });
         smartRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
@@ -87,6 +88,7 @@ public class SideDeleteActivity extends BaseActivity{
                 adapter.getContacts().clear();
                 adapter.getContacts().addAll(getData());
                 adapter.notifyDataSetChanged();
+                smartRefreshLayout.finishLoadMore();
             }
         });
     }

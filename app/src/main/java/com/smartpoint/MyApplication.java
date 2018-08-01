@@ -3,6 +3,8 @@ package com.smartpoint;
 import android.app.Activity;
 import android.util.Log;
 
+import com.mapbox.mapboxsdk.Mapbox;
+import com.smartpoint.marquee.R;
 import com.tencent.smtt.sdk.QbSdk;
 import com.uuzuche.lib_zxing.ZApplication;
 
@@ -42,6 +44,8 @@ public class MyApplication extends ZApplication {
         LitePal.initialize(this);//初始化litePal
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
+        // Mapbox Access token
+        Mapbox.getInstance(getApplicationContext(), getString(R.string.my_access_token));
     }
     private volatile static MyApplication mBaseApp;
     public static MyApplication newInstance(){

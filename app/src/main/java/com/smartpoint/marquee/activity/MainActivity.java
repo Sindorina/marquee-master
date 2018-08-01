@@ -18,7 +18,6 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -30,11 +29,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.kyleduo.switchbutton.SwitchButton;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -431,7 +428,8 @@ public class MainActivity extends BaseActivity {
         rxPermissions.requestEach(Manifest.permission.READ_PHONE_STATE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_SETTINGS)
+                Manifest.permission.WRITE_SETTINGS,
+                Manifest.permission.ACCESS_FINE_LOCATION)
                 .subscribe(new Observer<Permission>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -657,6 +655,12 @@ public class MainActivity extends BaseActivity {
                     case 22://字体颜色文本
                         RichEditorActivity.start(MainActivity.this);
                         break;
+                    case 23://讯飞语音
+                        XfVoiceActivity.start(MainActivity.this);
+                        break;
+                    case 24://MapBox
+                        MapBoxActivity.start(MainActivity.this);
+                        break;
                 }
             }
         });
@@ -693,6 +697,8 @@ public class MainActivity extends BaseActivity {
         listInfo.add("毛玻璃与下载");
         listInfo.add("侧滑删除");
         listInfo.add("字体颜色文本");
+        listInfo.add("讯飞语音AIUI");
+        listInfo.add("MapBox");
         adapter1.getContacts().addAll(listInfo);
         adapter1.notifyDataSetChanged();
         smartRefreshLayout.finishLoadMore();

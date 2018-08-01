@@ -11,4 +11,5 @@
     <string name="back">返回</string>
     <string name="change_replace">文字设置规范%1$s</string>
     <string name="blur">毛玻璃效果</string>
+    <string name="my_access_token">pk.eyJ1IjoicTI1MjU0OTA2NyIsImEiOiJjamd5dG5neTYwOTFvMnFxbGgxdGlrenFpIn0.geBx1WwGunHXJc1sJcaGHQ</string>
 </resources>

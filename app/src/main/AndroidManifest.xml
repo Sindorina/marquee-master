@@ -161,6 +161,8 @@
         <activity android:name=".activity.DownloadActivity" />
         <activity android:name=".activity.SideDeleteActivity" />
         <activity android:name=".activity.RichEditorActivity" />
+        <activity android:name=".activity.XfVoiceActivity" />
+        <activity android:name=".activity.MapBoxActivity" />
         <!-- Required SDK 核心功能-->
         <!-- 可配置android:process参数将PushService放在其他进程中 -->
         <service

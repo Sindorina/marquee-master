@@ -4,7 +4,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.smartpoint.marquee"
-        minSdkVersion 19
+        minSdkVersion 26
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -18,7 +18,7 @@ android {
     //配置keystore签名
     signingConfigs {
         debug {
-            storeFile file("D:/workSpaces/marquee-master/app/src/main/java/com/key/key.store")
+            storeFile file("D:/workSpace/marquee-master/marquee-master/app/src/main/java/com/key/key.store")
             storePassword "cl87654321"
             keyAlias "key23"
             keyPassword "cl87654321"
@@ -38,6 +38,7 @@ android {
     allprojects {
         repositories {
             maven { url 'https://jitpack.io' }
+            mavenCentral()
         }
     }
     externalNativeBuild {
@@ -75,7 +76,6 @@ dependencies {
     api 'com.youth.banner:banner:1.4.10'
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-12'
     //最新版本
-    implementation files('src/main/jniLibs/jna.jar')
     implementation files('src/main/jniLibs/android-armv7.jar')
     implementation files('src/main/jniLibs/tbs.jar')
     implementation project(':zxing')
@@ -88,4 +88,7 @@ dependencies {
     implementation files('src/main/jniLibs/jpush-android-3.1.5.jar')
     implementation 'jp.wasabeef:glide-transformations:3.0.1'
     implementation 'com.yanzhenjie:recyclerview-swipe:1.1.4'
+    implementation files('src/main/jniLibs/AIUI.jar')
+    implementation files('src/main/jniLibs/jna.jar')
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:6.3.0'
 }
