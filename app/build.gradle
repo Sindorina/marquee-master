@@ -97,4 +97,10 @@ dependencies {
     api 'com.github.ctiao:ndkbitmap-armv7a:0.9.21'
     api 'com.github.ctiao:ndkbitmap-armv5:0.9.21'
     api 'com.github.ctiao:ndkbitmap-x86:0.9.21'
+    implementation files('src/main/jniLibs/ageestimation.jar')
+    implementation files('src/main/jniLibs/facedetection.jar')
+    implementation files('src/main/jniLibs/facerecognition.jar')
+    implementation files('src/main/jniLibs/facetracking.jar')
+    implementation files('src/main/jniLibs/genderestimation.jar')
+    implementation 'com.guo.android_extend:android-extend:1.0.5'
 }

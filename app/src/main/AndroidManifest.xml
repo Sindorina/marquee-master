@@ -169,6 +169,9 @@
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.DanMuActivity" />
         <activity android:name=".activity.VideoShowActivity" />
+        <activity android:name=".activity.FaceRecognizeActivity" />
+        <activity android:name=".activity.RegisterActivity" />
+        <activity android:name=".activity.DetecterActivity" />
         <!-- Required SDK 核心功能-->
         <!-- 可配置android:process参数将PushService放在其他进程中 -->
         <service

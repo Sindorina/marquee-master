@@ -438,7 +438,8 @@ public class MainActivity extends BaseActivity {
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.WRITE_SETTINGS,
-                Manifest.permission.ACCESS_FINE_LOCATION)
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.CAMERA)
                 .subscribe(new Observer<Permission>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -687,6 +688,9 @@ public class MainActivity extends BaseActivity {
                     case 28://视频展示
                         VideoShowActivity.start(MainActivity.this);
                         break;
+                    case 29://人脸识别
+                        FaceRecognizeActivity.start(MainActivity.this);
+                        break;
                 }
             }
         });
@@ -730,6 +734,7 @@ public class MainActivity extends BaseActivity {
         listInfo.add("retrofit");
         listInfo.add("弹幕测试");
         listInfo.add("视频展示");
+        listInfo.add("人脸识别");
         adapter1.getContacts().addAll(listInfo);
         adapter1.notifyDataSetChanged();
         smartRefreshLayout.finishLoadMore();
