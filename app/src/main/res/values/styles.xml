@@ -18,5 +18,10 @@
         <item name="android:windowExitAnimation">@anim/pophide_anim</item>
         <!-- 指定消失的动画xml -->
     </style>
-
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- 欢迎页背景引用刚才写好的 -->
+        <item name="android:windowBackground">@drawable/splash</item>
+        <item name="android:windowFullscreen">true</item>
+        <!-- <item name="android:windowIsTranslucent">true</item> --> <!-- 透明背景不要了 -->
+    </style>
 </resources>

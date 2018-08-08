@@ -678,6 +678,15 @@ public class MainActivity extends BaseActivity {
                     case 25://SVGA
                         SvgaActivity.start(MainActivity.this);
                         break;
+                    case 26://RXjava
+                        RxJavaLearnActivity.start(MainActivity.this);
+                        break;
+                    case 27://弹幕
+                        DanMuActivity.start(MainActivity.this);
+                        break;
+                    case 28://视频展示
+                        VideoShowActivity.start(MainActivity.this);
+                        break;
                 }
             }
         });
@@ -718,6 +727,9 @@ public class MainActivity extends BaseActivity {
         listInfo.add("讯飞语音AIUI");
         listInfo.add("MapBox");
         listInfo.add("SVGA");
+        listInfo.add("retrofit");
+        listInfo.add("弹幕测试");
+        listInfo.add("视频展示");
         adapter1.getContacts().addAll(listInfo);
         adapter1.notifyDataSetChanged();
         smartRefreshLayout.finishLoadMore();

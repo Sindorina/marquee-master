@@ -45,10 +45,12 @@ public class CountDownTimerActivity extends AppCompatActivity {
         time = targetTime - cunrrentTime;
         if (time<0){
             Toast.makeText(this,"目标时间已过",Toast.LENGTH_SHORT).show();
+            textView.setText("目标时间已过");
             return;
         }
         if (time == 0) {
             Toast.makeText(this, "时间转换错误", Toast.LENGTH_SHORT).show();
+            textView.setText("时间转换错误");
             return;
         }
         timer = new Timer();
@@ -70,7 +72,7 @@ public class CountDownTimerActivity extends AppCompatActivity {
         private final WeakReference<CountDownTimerActivity> mActivity;
 
         public MyHandler(CountDownTimerActivity activity) {
-            mActivity = new WeakReference<CountDownTimerActivity>(activity);
+            mActivity = new WeakReference<>(activity);
         }
 
         @Override

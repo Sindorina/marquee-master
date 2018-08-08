@@ -18,7 +18,7 @@ android {
     //配置keystore签名
     signingConfigs {
         debug {
-            storeFile file("D:/workSpace/marquee-master/marquee-master/app/src/main/java/com/key/key.store")
+            storeFile file("D:/workSpaces/marquee-master/app/src/main/java/com/key/key.store")
             storePassword "cl87654321"
             keyAlias "key23"
             keyPassword "cl87654321"
@@ -93,4 +93,8 @@ dependencies {
     implementation files('src/main/jniLibs/jna.jar')
     implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:6.3.0'
     api 'com.github.yyued:SVGAPlayer-Android:2.0.3'
+    api 'com.github.ctiao:DanmakuFlameMaster:0.9.25'
+    api 'com.github.ctiao:ndkbitmap-armv7a:0.9.21'
+    api 'com.github.ctiao:ndkbitmap-armv5:0.9.21'
+    api 'com.github.ctiao:ndkbitmap-x86:0.9.21'
 }

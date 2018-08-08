@@ -73,7 +73,7 @@ public class RxJavaLearnActivity extends BaseActivity {
     public void initData() {
         getData();
         //test();
-        test2();
+        //test2();
     }
 
     private void getData() {
@@ -83,9 +83,16 @@ public class RxJavaLearnActivity extends BaseActivity {
             protected void onHandleSuccess(Movie movie) {
                 Log.d(TAG, "onNext: " + movie.getTitle());
                 List<Subjects> list = movie.getSubjects();
+                List<String> res = new ArrayList<>();
                 for (Subjects sub : list) {
-                    Log.d(TAG, "onNext: " + sub.getId() + "," + sub.getYear() + "," + sub.getTitle());
+                    res.add(sub.getId());
+                    res.add(sub.getYear());
+                    res.add(sub.getTitle());
                 }
+                adapter.getContacts().addAll(res);
+                adapter.notifyDataSetChanged();
+                smartRefreshLayout.finishRefresh();
+                smartRefreshLayout.finishLoadMore();
             }
         });
     }

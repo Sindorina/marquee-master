@@ -61,7 +61,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".activity.SplashActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -164,6 +165,10 @@
         <activity android:name=".activity.XfVoiceActivity" />
         <activity android:name=".activity.MapBoxActivity" />
         <activity android:name=".activity.SvgaActivity" />
+        <activity android:name=".activity.SurfaceViewDrawActivity2" />
+        <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.DanMuActivity" />
+        <activity android:name=".activity.VideoShowActivity" />
         <!-- Required SDK 核心功能-->
         <!-- 可配置android:process参数将PushService放在其他进程中 -->
         <service

@@ -14,6 +14,8 @@ import android.widget.LinearLayout;
 import com.smartpoint.marquee.R;
 import com.smartpoint.surfaceView.MySurfaceViee;
 import com.smartpoint.view.MySurfaceView;
+import com.smartpoint.view.MySurfaceViewFall;
+import com.smartpoint.view.MySurfaceViewTest;
 
 /**
  * Created by Administrator on 2018/6/6
@@ -43,6 +45,7 @@ public class SurfaceViewDrawActivity2 extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        root.removeAllViews();
         switch (item.getItemId()){
             case R.id.item1:
                 MySurfaceViee surfaceViee = new MySurfaceViee(this);
@@ -53,6 +56,16 @@ public class SurfaceViewDrawActivity2 extends AppCompatActivity {
                 MySurfaceView surfaceView  = new MySurfaceView(this);
                 surfaceView.setLayoutParams(params);
                 root.addView(surfaceView);
+                return true;
+            case R.id.item3:
+                MySurfaceViewTest surfaceViewTest  = new MySurfaceViewTest(this);
+                surfaceViewTest.setLayoutParams(params);
+                root.addView(surfaceViewTest);
+                return true;
+            case R.id.item4:
+                MySurfaceViewFall surfaceViewFall  = new MySurfaceViewFall(this);
+                surfaceViewFall.setLayoutParams(params);
+                root.addView(surfaceViewFall);
                 return true;
         }
         return true;
