@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.smartpoint.marquee.R;
+import com.smartpoint.marquee.base.BaseActivity;
 import com.smartpoint.view.ProgressWebView;
 import com.tencent.smtt.sdk.WebSettings;
 
@@ -14,17 +16,32 @@ import com.tencent.smtt.sdk.WebSettings;
  * Created by Administrator on 2018/6/13
  * 邮箱 18780569202@163.com
  */
-public class WebAppActivity extends AppCompatActivity {
+public class WebAppActivity extends BaseActivity {
     private ProgressWebView webView;
     private String url = "http://172.16.15.96:9999/jquery.html";
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tencent_webview);
+    public int getContentViewId() {
+        return R.layout.activity_tencent_webview;
+    }
+
+    @Override
+    public void beforeInitView() {
+
+    }
+
+    @Override
+    public void initView() {
         webView = findViewById(R.id.tencentWebView);
         initWeb();
         webView.loadUrl(url);
     }
+
+    @Override
+    public void initData() {
+
+    }
+
     //初始化webView
     private void initWeb() {
         WebSettings webSettings = webView.getSettings();
@@ -50,5 +67,10 @@ public class WebAppActivity extends AppCompatActivity {
     public static void start(Activity activity) {
         Intent intent = new Intent(activity, WebAppActivity.class);
         activity.startActivity(intent);
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }

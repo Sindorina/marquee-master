@@ -7,13 +7,15 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 
 import com.google.vr.sdk.widgets.pano.VrPanoramaEventListener;
 import com.google.vr.sdk.widgets.pano.VrPanoramaView;
 import com.smartpoint.marquee.R;
+import com.smartpoint.marquee.base.BaseActivity;
 import com.zph.glpanorama.GLPanorama;
 
-public class VRActivity extends AppCompatActivity {
+public class VRActivity extends BaseActivity {
     public static void start(Activity activity) {
         Intent intent = new Intent(activity, VRActivity.class);
         activity.startActivity(intent);
@@ -22,14 +24,28 @@ public class VRActivity extends AppCompatActivity {
     private VrPanoramaView.Options paNormalOptions;
     private GLPanorama mGLPanorama;
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_vr);
+    public int getContentViewId() {
+        return R.layout.activity_vr;
+    }
+
+    @Override
+    public void beforeInitView() {
+
+    }
+
+    @Override
+    public void initView() {
         //初始化google Vr
         initVrPaNormalView();
         //初始化OpenGL
         //initOpenGL();
     }
+
+    @Override
+    public void initData() {
+
+    }
+
     private void initOpenGL(){
         mGLPanorama = findViewById(R.id.mGLPanorama);
         mGLPanorama.setGLPanorama(R.drawable.andes);
@@ -55,6 +71,12 @@ public class VRActivity extends AppCompatActivity {
         //panoWidgetView.loadImageFromByteArray();
 
     }
+
+    @Override
+    public void onClick(View v) {
+
+    }
+
     private class ActivityEventListener extends VrPanoramaEventListener {
         @Override public void onLoadSuccess() {
             //图片加载成功

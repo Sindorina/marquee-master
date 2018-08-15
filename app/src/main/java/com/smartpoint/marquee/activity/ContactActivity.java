@@ -7,12 +7,14 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Toast;
 
 import com.gjiazhe.wavesidebar.WaveSideBar;
 import com.smartpoint.adapter.ContactsAdapter;
 import com.smartpoint.entity.Contact;
 import com.smartpoint.marquee.R;
+import com.smartpoint.marquee.base.BaseActivity;
 import com.smartpoint.util.LogUtils;
 import com.smartpoint.util.PingYinUtil;
 
@@ -26,7 +28,7 @@ import java.util.Set;
  * Created by Administrator on 2018/4/27
  * 邮箱 18780569202@163.com
  */
-public class ContactActivity extends AppCompatActivity {
+public class ContactActivity extends BaseActivity {
     public static void start(Activity activity) {
         Intent intent = new Intent(activity, ContactActivity.class);
         activity.startActivity(intent);
@@ -39,15 +41,16 @@ public class ContactActivity extends AppCompatActivity {
     private  char[] chars;
     private static final String TAG = "ContactActivity";
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        //initData();
-        setData();
-        initView();
-
+    public int getContentViewId() {
+        return R.layout.activity_contact;
     }
 
-    private void initView() {
+    @Override
+    public void beforeInitView() {
+        setData();
+    }
+    @Override
+    public void initView() {
         setContentView(R.layout.activity_contact);
         rvContacts = findViewById(R.id.rv_contacts);
         rvContacts.setLayoutManager(new LinearLayoutManager(this));
@@ -74,8 +77,8 @@ public class ContactActivity extends AppCompatActivity {
             }
         });
     }
-
-    private void initData() {
+    @Override
+    public void initData() {
         contacts.addAll(Contact.getEnglishContacts());
     }
 
@@ -131,5 +134,10 @@ public class ContactActivity extends AppCompatActivity {
             }
         }
         return list.toArray(new String[list.size()]);
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }

@@ -377,8 +377,11 @@ public class DanMuActivity extends AppCompatActivity implements View.OnClickList
                 SystemClock.sleep(20);
             }
         }
-    };
-
+    }
+    /**
+     * 添加一条文字弹幕
+     * @param islive 是否是实时的
+     */
     private void addDanmaku(boolean islive) {
         BaseDanmaku danmaku = mContext.mDanmakuFactory.createDanmaku(BaseDanmaku.TYPE_SCROLL_RL);
         if (danmaku == null || mDanmakuView == null) {
@@ -400,6 +403,10 @@ public class DanMuActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
+    /**
+     * 添加一条图文弹幕
+     * @param islive 是否是实时的
+     */
     private void addDanmaKuShowTextAndImage(boolean islive) {
         BaseDanmaku danmaku = mContext.mDanmakuFactory.createDanmaku(BaseDanmaku.TYPE_SCROLL_RL);
         Drawable drawable = getResources().getDrawable(R.mipmap.ic_launcher);
@@ -417,6 +424,11 @@ public class DanMuActivity extends AppCompatActivity implements View.OnClickList
         mDanmakuView.addDanmaku(danmaku);
     }
 
+    /**
+     * span 生成
+     * @param drawable
+     * @return
+     */
     private SpannableStringBuilder createSpannable(Drawable drawable) {
         String text = "bitmap";
         SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(text);
@@ -445,6 +457,8 @@ public class DanMuActivity extends AppCompatActivity implements View.OnClickList
         Window window = getWindow();
         //定义全屏参数
         int flag= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+        //设置当前窗体为全屏显示
+        window.setFlags(flag, flag);
         setContentView(R.layout.activity_danmu);
         //如果存在actionBar，就隐藏
         if (getSupportActionBar() != null)

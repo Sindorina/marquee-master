@@ -1,6 +1,5 @@
 package com.smartpoint.marquee.activity;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -20,6 +19,7 @@ import android.webkit.WebViewClient;
 import android.widget.EditText;
 
 import com.smartpoint.marquee.R;
+import com.smartpoint.marquee.base.BaseActivity;
 import com.smartpoint.util.LogUtils;
 
 
@@ -27,15 +27,29 @@ import com.smartpoint.util.LogUtils;
  * Created by Administrator on 2018/6/28
  * 邮箱 18780569202@163.com
  */
-public class Decode2Activity extends AppCompatActivity{
+public class Decode2Activity extends BaseActivity{
     EditText editText;
     WebView webView;
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_decode2);
+    public int getContentViewId() {
+        return R.layout.activity_decode2;
+    }
+
+    @Override
+    public void beforeInitView() {
+
+    }
+
+    @Override
+    public void initView() {
         init();
     }
+
+    @Override
+    public void initData() {
+
+    }
+
     private void init(){
         webView = findViewById(R.id.webView);
         editText = findViewById(R.id.editText);
@@ -127,4 +141,9 @@ public class Decode2Activity extends AppCompatActivity{
             return false;
         }
     });
+
+    @Override
+    public void onClick(View v) {
+
+    }
 }

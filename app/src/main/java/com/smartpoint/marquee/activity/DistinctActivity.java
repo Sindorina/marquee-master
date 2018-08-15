@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.TextView;
 
 import com.smartpoint.marquee.R;
+import com.smartpoint.marquee.base.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -18,7 +20,7 @@ import java.util.Set;
  * Created by Administrator on 2018/5/21
  * 邮箱 18780569202@163.com
  */
-public class DistinctActivity extends AppCompatActivity {
+public class DistinctActivity extends BaseActivity {
     public static void start(Activity activity) {
         Intent intent = new Intent(activity, DistinctActivity.class);
         activity.startActivity(intent);
@@ -26,13 +28,27 @@ public class DistinctActivity extends AppCompatActivity {
 
     TextView textView,textView2;
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_distinct);
+    public int getContentViewId() {
+        return R.layout.activity_distinct;
+    }
+
+    @Override
+    public void beforeInitView() {
+
+    }
+
+    @Override
+    public void initView() {
         textView = findViewById(R.id.textView);
         textView2 = findViewById(R.id.textView2);
         testDistinct();
     }
+
+    @Override
+    public void initData() {
+
+    }
+
     /**
      * 通过set去重, 不打乱原有list的顺序
      *       list中相同的对象会被去重复
@@ -68,5 +84,10 @@ public class DistinctActivity extends AppCompatActivity {
         for (String str:list1) {
            textView2.append(str);
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }

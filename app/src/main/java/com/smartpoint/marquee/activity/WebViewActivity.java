@@ -18,13 +18,16 @@ import android.webkit.WebViewClient;
 
 import com.daimajia.numberprogressbar.NumberProgressBar;
 import com.smartpoint.marquee.R;
+import com.smartpoint.marquee.base.BaseActivity;
 import com.smartpoint.view.MyProgressDialog;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-public class WebViewActivity extends AppCompatActivity {
+import retrofit2.http.PUT;
+
+public class WebViewActivity extends BaseActivity {
     public static void start(Activity activity) {
         Intent intent = new Intent(activity, WebViewActivity.class);
         activity.startActivity(intent);
@@ -37,11 +40,21 @@ public class WebViewActivity extends AppCompatActivity {
     private NumberProgressBar pb;//进度条
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_webview);
-        //hookWebView();
-        initView();
+    public int getContentViewId() {
+        return R.layout.activity_webview;
+    }
+
+    @Override
+    public void beforeInitView() {
+
+    }
+    @Override
+    public void initView() {
+        webView = findViewById(R.id.webView);
+        pb = findViewById(R.id.pb);
+        dialog = new MyProgressDialog(this, R.style.CustomDialog);
+        dialog.setCancelable(true);
+
         initWeb();
         webView.loadUrl(testUrl1);
         webView.requestFocus();
@@ -83,11 +96,9 @@ public class WebViewActivity extends AppCompatActivity {
         });
     }
 
-    private void initView() {
-        webView = findViewById(R.id.webView);
-        pb = findViewById(R.id.pb);
-        dialog = new MyProgressDialog(this, R.style.CustomDialog);
-        dialog.setCancelable(true);
+    @Override
+    public void initData() {
+
     }
 
     private void initWeb() {
@@ -174,4 +185,8 @@ public class WebViewActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onClick(View v) {
+
+    }
 }

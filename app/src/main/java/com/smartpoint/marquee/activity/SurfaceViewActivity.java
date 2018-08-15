@@ -11,16 +11,18 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 import android.widget.Toast;
 
 import com.smartpoint.marquee.R;
+import com.smartpoint.marquee.base.BaseActivity;
 import com.smartpoint.util.LogUtils;
 
 /**
  * Created by Administrator on 2018/6/6
  * 邮箱 18780569202@163.com
  */
-public class SurfaceViewActivity extends AppCompatActivity implements SurfaceHolder.Callback {
+public class SurfaceViewActivity extends BaseActivity implements SurfaceHolder.Callback {
     public static void start(Activity activity) {
         Intent intent = new Intent(activity, SurfaceViewActivity.class);
         activity.startActivity(intent);
@@ -31,14 +33,27 @@ public class SurfaceViewActivity extends AppCompatActivity implements SurfaceHol
     private int position;
     private AssetManager assetManager;
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_surface_view);
+    public int getContentViewId() {
+        return R.layout.activity_surface_view;
+    }
+
+    @Override
+    public void beforeInitView() {
+
+    }
+
+    @Override
+    public void initView() {
         surfaceView = findViewById(R.id.surfaceView);
         //mediaPlayer = new MediaPlayer();
         surfaceView.getHolder().setKeepScreenOn(true);
         surfaceView.getHolder().addCallback(this);
         play(0);
+    }
+
+    @Override
+    public void initData() {
+
     }
 
     @Override
@@ -102,5 +117,10 @@ public class SurfaceViewActivity extends AppCompatActivity implements SurfaceHol
             position = mediaPlayer.getCurrentPosition();
             mediaPlayer.stop();
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }

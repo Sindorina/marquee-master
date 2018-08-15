@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.smartpoint.entity.User;
 import com.smartpoint.marquee.R;
+import com.smartpoint.marquee.base.BaseActivity;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
@@ -28,24 +29,25 @@ import io.reactivex.functions.Consumer;
  * Created by Administrator on 2018/4/28
  * 邮箱 18780569202@163.com
  */
-public class LitePalActivity extends AppCompatActivity implements View.OnClickListener{
+public class LitePalActivity extends BaseActivity{
     private SQLiteDatabase db;
     public static void start(Activity activity) {
         Intent intent = new Intent(activity, LitePalActivity.class);
         activity.startActivity(intent);
     }
-
     Button buttonSave,buttonRead,buttonReadAll,buttonDel,buttonDelAll;
     TextView textView;
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sqlite);
-        checkPermission();
-        initView();
-        db = Connector.getDatabase();
+    public int getContentViewId() {
+        return R.layout.activity_sqlite;
     }
-    private void initView(){
+
+    @Override
+    public void beforeInitView() {
+        checkPermission();
+    }
+    @Override
+    public void initView(){
         buttonReadAll = findViewById(R.id.buttonReadAll);
         buttonRead = findViewById(R.id.buttonRead);
         buttonSave = findViewById(R.id.buttonSave);
@@ -57,6 +59,11 @@ public class LitePalActivity extends AppCompatActivity implements View.OnClickLi
         buttonDel.setOnClickListener(this);
         buttonDelAll.setOnClickListener(this);
         buttonReadAll.setOnClickListener(this);
+    }
+
+    @Override
+    public void initData() {
+        db = Connector.getDatabase();
     }
 
     @Override

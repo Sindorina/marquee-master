@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.google.zxing.WriterException;
 import com.smartpoint.marquee.BitmapUtil;
 import com.smartpoint.marquee.R;
+import com.smartpoint.marquee.base.BaseActivity;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
@@ -24,7 +25,7 @@ import com.uuzuche.lib_zxing.activity.CodeUtils;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
-public class ZxinActivity extends AppCompatActivity {
+public class ZxinActivity extends BaseActivity {
     private TextView textView;
     private static final int SCANNING_CODE = 1000;
     private String testUrl = "http://172.16.15.96:9999/jquery.html";
@@ -34,10 +35,17 @@ public class ZxinActivity extends AppCompatActivity {
     }
     ImageView iv;
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public int getContentViewId() {
+        return R.layout.activity_zxin;
+    }
+
+    @Override
+    public void beforeInitView() {
         checkPermission();
-        setContentView(R.layout.activity_zxin);
+    }
+
+    @Override
+    public void initView() {
         iv = findViewById(R.id.iv);
         textView = findViewById(R.id.textView);
         findViewById(R.id.btn).setOnClickListener(new View.OnClickListener() {
@@ -53,6 +61,12 @@ public class ZxinActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void initData() {
+
+    }
+
     //生成二维码不带图片
     public void generate(View view) throws WriterException {
         Bitmap bitmap = BitmapUtil.createQRCode(testUrl,256);
@@ -121,5 +135,10 @@ public class ZxinActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }

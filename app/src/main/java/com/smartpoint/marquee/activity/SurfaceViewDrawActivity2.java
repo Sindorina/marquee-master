@@ -9,9 +9,11 @@ import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import com.smartpoint.marquee.R;
+import com.smartpoint.marquee.base.BaseActivity;
 import com.smartpoint.surfaceView.MySurfaceViee;
 import com.smartpoint.view.MySurfaceView;
 import com.smartpoint.view.MySurfaceViewFall;
@@ -21,19 +23,33 @@ import com.smartpoint.view.MySurfaceViewTest;
  * Created by Administrator on 2018/6/6
  * 邮箱 18780569202@163.com
  */
-public class SurfaceViewDrawActivity2 extends AppCompatActivity {
+public class SurfaceViewDrawActivity2 extends BaseActivity {
     public static void start(Activity activity) {
         Intent intent = new Intent(activity, SurfaceViewDrawActivity2.class);
         activity.startActivity(intent);
     }
     private LinearLayout root;
     private LinearLayout.LayoutParams params;
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity2_surface_view);
+    public int getContentViewId() {
+        return R.layout.activity2_surface_view;
+    }
+
+    @Override
+    public void beforeInitView() {
+
+    }
+
+    @Override
+    public void initView() {
         root = findViewById(R.id.root);
         params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT);
+    }
+
+    @Override
+    public void initData() {
+
     }
 
     @Override
@@ -69,5 +85,10 @@ public class SurfaceViewDrawActivity2 extends AppCompatActivity {
                 return true;
         }
         return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }

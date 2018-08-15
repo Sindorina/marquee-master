@@ -54,6 +54,7 @@ public class VideoShowActivity extends BaseActivity{
               }
             }
         });
+        recyclerView.smoothScrollToPosition(0);
     }
 
     @Override

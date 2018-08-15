@@ -2,6 +2,7 @@ package com.smartpoint.marquee.base;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -21,12 +22,20 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.getWindow().setFlags(FLAG_HOMEKEY_DISPATCHED, FLAG_HOMEKEY_DISPATCHED);
-        //全屏隐藏状态栏
-        Window window = getWindow();
-        //定义全屏参数
-        int flag=WindowManager.LayoutParams.FLAG_FULLSCREEN;
-        //设置当前窗体为全屏显示
-        window.setFlags(flag, flag);
+        if (Build.VERSION.SDK_INT >= 21) {
+            //全屏隐藏状态栏
+            Window window = getWindow();
+            //定义全屏参数
+            int flag=WindowManager.LayoutParams.FLAG_FULLSCREEN;
+            //设置当前窗体为全屏显示
+            window.setFlags(flag, flag);
+        }else {
+//            View decorView = getWindow().getDecorView();
+//            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+//                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+//            decorView.setSystemUiVisibility(option);
+//            getWindow().setStatusBarColor(Color.TRANSPARENT);
+        }
         StatusBarHelper.setStatusBarLightMode(this, true); //设置小米手机系统状态栏字体颜色
         mApplication = MyApplication.newInstance();
         mApplication.setShowActivity(this);

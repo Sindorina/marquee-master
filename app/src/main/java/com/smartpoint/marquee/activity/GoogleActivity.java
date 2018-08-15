@@ -12,12 +12,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.smartpoint.marquee.R;
+import com.smartpoint.marquee.base.BaseActivity;
 
 /**
  * Created by Administrator on 2018/5/15
  * 邮箱 18780569202@163.com
  */
-public class GoogleActivity extends AppCompatActivity {
+public class GoogleActivity extends BaseActivity {
     public static void start(Activity activity) {
         Intent intent = new Intent(activity, GoogleActivity.class);
         activity.startActivity(intent);
@@ -26,9 +27,17 @@ public class GoogleActivity extends AppCompatActivity {
     private TextView textView;
     private Button btn;
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_google);
+    public int getContentViewId() {
+        return R.layout.activity_google;
+    }
+
+    @Override
+    public void beforeInitView() {
+
+    }
+
+    @Override
+    public void initView() {
         textView = findViewById(R.id.textView);
         editText = findViewById(R.id.editText);
         btn = findViewById(R.id.btn);
@@ -42,6 +51,12 @@ public class GoogleActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void initData() {
+
+    }
+
     private String splitString(String str){
         StringBuilder stringBuilder = new StringBuilder();
         for (int i=0;i<str.length();i++){
@@ -52,4 +67,8 @@ public class GoogleActivity extends AppCompatActivity {
         return stringBuilder.delete(stringBuilder.length()-4,stringBuilder.length()).toString();
     }
 
+    @Override
+    public void onClick(View v) {
+
+    }
 }

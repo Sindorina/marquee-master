@@ -74,7 +74,8 @@
         <activity android:name=".activity.VRActivity" />
         <activity android:name=".activity.TencentWebViewActivity" />
         <activity android:name=".activity.PickerViewActivity" />
-        <activity android:name=".activity.MediaPlayActivity" />
+        <activity android:name=".activity.MediaPlayActivity"
+            android:screenOrientation="landscape"/>
         <activity android:name=".activity.ZxinActivity" />
         <activity
             android:name="com.tencent.smtt.sdk.VideoActivity"
@@ -93,7 +94,8 @@
         <activity android:name=".activity.DecodeActivity" />
         <activity android:name=".activity.JniActivity" />
         <activity android:name=".activity.ScreenLockActivity" />
-        <activity android:name=".activity.CountDownTimerActivity" />
+        <activity android:name=".activity.CountDownTimerActivity"
+            android:screenOrientation="landscape"/>
         <activity android:name=".activity.GoogleActivity" />
         <activity android:name=".activity.DistinctActivity" />
         <activity android:name=".activity.SvgActivity" />
@@ -172,6 +174,7 @@
         <activity android:name=".activity.FaceRecognizeActivity" />
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.DetecterActivity" />
+        <activity android:name=".activity.UnzipActivity" />
         <!-- Required SDK 核心功能-->
         <!-- 可配置android:process参数将PushService放在其他进程中 -->
         <service

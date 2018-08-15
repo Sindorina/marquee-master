@@ -2,10 +2,7 @@ package com.smartpoint.marquee.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -24,11 +21,12 @@ import com.smartpoint.adapter.MyAdapter;
 import com.smartpoint.entity.CardBean;
 import com.smartpoint.entity.CityInfo;
 import com.smartpoint.marquee.R;
+import com.smartpoint.marquee.base.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PickerViewActivity extends AppCompatActivity implements View.OnClickListener{
+public class PickerViewActivity extends BaseActivity{
     private String TAG = "PickerViewActivity";
     private OptionsPickerView pvCustomOptions;
     private ArrayList<CardBean> cardItem = new ArrayList<>();
@@ -40,21 +38,31 @@ public class PickerViewActivity extends AppCompatActivity implements View.OnClic
         activity.startActivity(intent);
     }
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pickerview);
-        initView();
-        getCardData();
-        initBottomView();
+    public int getContentViewId() {
+        return R.layout.activity_pickerview;
     }
-    private void initView(){
+
+    @Override
+    public void beforeInitView() {
+
+    }
+    @Override
+    public void initView(){
         rootView = findViewById(R.id.rootView);
         findViewById(R.id.btn).setOnClickListener(this);
         btnProvince = findViewById(R.id.btnProvince);
         btnCity = findViewById(R.id.btnCity);
         btnProvince.setOnClickListener(this);
         btnCity.setOnClickListener(this);
+        getCardData();
+        initBottomView();
     }
+
+    @Override
+    public void initData() {
+
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){

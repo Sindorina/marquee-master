@@ -7,10 +7,14 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.smartpoint.marquee.R;
+import com.smartpoint.marquee.base.BaseActivity;
 
 import java.lang.ref.WeakReference;
 import java.text.ParseException;
@@ -24,7 +28,7 @@ import java.util.TimerTask;
  * Created by Administrator on 2018/5/11
  * 邮箱 18780569202@163.com
  */
-public class CountDownTimerActivity extends AppCompatActivity {
+public class CountDownTimerActivity extends BaseActivity {
     public static void start(Activity activity) {
         Intent intent = new Intent(activity, CountDownTimerActivity.class);
         activity.startActivity(intent);
@@ -35,10 +39,20 @@ public class CountDownTimerActivity extends AppCompatActivity {
     static long cunrrentTime;
     static long targetTime;
     static Timer timer;
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_count_down_timer);
+    public int getContentViewId() {
+        return R.layout.activity_count_down_timer;
+    }
+
+    @Override
+    public void beforeInitView() {
+        Window window = getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    }
+
+    @Override
+    public void initView() {
         textView = findViewById(R.id.textView);
         cunrrentTime = System.currentTimeMillis()/1000;
         targetTime = getTime(getTargetTime())/1000;
@@ -55,6 +69,16 @@ public class CountDownTimerActivity extends AppCompatActivity {
         }
         timer = new Timer();
         timer.schedule(new MyTimerTask(),1000,1000);
+    }
+
+    @Override
+    public void initData() {
+
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 
     private class MyTimerTask extends TimerTask {

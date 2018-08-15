@@ -2,6 +2,7 @@ package com.smartpoint.marquee.activity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -32,6 +33,7 @@ import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kyleduo.switchbutton.SwitchButton;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -674,7 +676,16 @@ public class MainActivity extends BaseActivity {
                         XfVoiceActivity.start(MainActivity.this);
                         break;
                     case 24://MapBox
-                        MapBoxActivity.start(MainActivity.this);
+                        ComponentName componetName = new ComponentName(
+                                "testapp.mapboxsdk.mapbox.com.mapviewtest",  //这个是另外一个应用程序的包名
+                                "testapp.mapboxsdk.mapbox.com.mapviewtest.MainActivity");   //这个参数是要启动的Activity的全路径名
+                        try {
+                            Intent intent = new Intent();
+                            intent.setComponent(componetName);
+                            startActivity(intent);
+                        } catch (Exception e) {
+                            Toast.makeText(getApplicationContext(), "可以在这里提示用户没有找到应用程序，或者是做其他的操作！", Toast.LENGTH_SHORT).show();
+                        }
                         break;
                     case 25://SVGA
                         SvgaActivity.start(MainActivity.this);

@@ -7,22 +7,20 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 
 import com.smartpoint.marquee.R;
+import com.smartpoint.marquee.base.BaseActivity;
 import com.smartpoint.util.LogUtils;
 
 /**
  * Created by Administrator on 2018/6/6
  * 邮箱 18780569202@163.com
  */
-public class SurfaceViewDrawActivity extends AppCompatActivity implements SurfaceHolder.Callback {
+public class SurfaceViewDrawActivity extends BaseActivity implements SurfaceHolder.Callback {
     public static void start(Activity activity) {
         Intent intent = new Intent(activity, SurfaceViewDrawActivity.class);
         activity.startActivity(intent);
@@ -37,11 +35,20 @@ public class SurfaceViewDrawActivity extends AppCompatActivity implements Surfac
     private Paint paint;
     //子线程标志位
     private boolean mIsDrawing;
+
+    @Override
+    public int getContentViewId() {
+        return R.layout.activity_surface_view;
+    }
+
+    @Override
+    public void beforeInitView() {
+
+    }
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_surface_view);
+    public void initView() {
         surfaceView = findViewById(R.id.surfaceView);
         surfaceView.getHolder().addCallback(this);
         surfaceView.getHolder().setKeepScreenOn(true);
@@ -87,6 +94,12 @@ public class SurfaceViewDrawActivity extends AppCompatActivity implements Surfac
             }
         });
     }
+
+    @Override
+    public void initData() {
+
+    }
+
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         LogUtils.logE(TAG,"surfaceCreated");
@@ -137,4 +150,8 @@ public class SurfaceViewDrawActivity extends AppCompatActivity implements Surfac
         }
     }
 
+    @Override
+    public void onClick(View v) {
+
+    }
 }

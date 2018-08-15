@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.smartpoint.marquee.R;
+import com.smartpoint.marquee.base.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,7 @@ import lecho.lib.hellocharts.view.LineChartView;
  * Created by Administrator on 2018/6/8
  * 邮箱 18780569202@163.com
  */
-public class LineChartsActivity extends AppCompatActivity {
+public class LineChartsActivity extends BaseActivity {
     public static void start(Activity activity) {
         Intent intent = new Intent(activity, LineChartsActivity.class);
         activity.startActivity(intent);
@@ -38,13 +39,27 @@ public class LineChartsActivity extends AppCompatActivity {
     private  long MaxY=0;//y轴最大值
     private List<Float> listY = new ArrayList<>();
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hello_charts);
+    public int getContentViewId() {
+        return R.layout.activity_hello_charts;
+    }
+
+    @Override
+    public void beforeInitView() {
+
+    }
+
+    @Override
+    public void initView() {
         chart = findViewById(R.id.chart);
         setListY();
         generateData();
     }
+
+    @Override
+    public void initData() {
+
+    }
+
     //初始化数据
     private void generateData() {
         MaxY = 0;
@@ -127,5 +142,10 @@ public class LineChartsActivity extends AppCompatActivity {
         listY.add(35.78f);listY.add(68.654f);
         listY.add(28.321f);listY.add(39.875f);
         listY.add(75.78f);listY.add(88.654f);
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }

@@ -7,6 +7,6 @@
         <!-- 图片 -->
         <bitmap
             android:gravity="center"
-            android:src="@mipmap/start" />
+            android:src="@mipmap/ic_launcher" />
     </item>
 </layer-list>

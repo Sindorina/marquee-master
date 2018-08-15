@@ -6,8 +6,10 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.smartpoint.marquee.R;
+import com.smartpoint.marquee.base.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +26,7 @@ import lecho.lib.hellocharts.view.ColumnChartView;
  * Created by Administrator on 2018/6/8
  * 邮箱 18780569202@163.com
  */
-public class ColumnChartActivity extends AppCompatActivity {
+public class ColumnChartActivity extends BaseActivity {
     /*========== 数据相关 ==========*/
     private ColumnChartData mColumnChartData;    //柱状图数据
     private ColumnChartView chart;
@@ -32,12 +34,26 @@ public class ColumnChartActivity extends AppCompatActivity {
         Intent intent = new Intent(activity, ColumnChartActivity.class);
         activity.startActivity(intent);
     }
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_column_chart);
+    public int getContentViewId() {
+        return R.layout.activity_column_chart;
+    }
+
+    @Override
+    public void beforeInitView() {
+
+    }
+
+    @Override
+    public void initView() {
         chart = findViewById(R.id.chart);
         initColumnInfo();
+    }
+
+    @Override
+    public void initData() {
+
     }
 
     /**
@@ -75,5 +91,10 @@ public class ColumnChartActivity extends AppCompatActivity {
         axisX.setValues(axisValues);
         //以上所有设置的数据、坐标配置都已存放到mColumnChartData中，接下来给mColumnChartView设置这些配置
         chart.setColumnChartData(mColumnChartData);
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }
