@@ -25,7 +25,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         if (Build.VERSION.SDK_INT >= 21) {
             //全屏隐藏状态栏
             Window window = getWindow();
-            //定义全屏参数
+             //定义全屏参数
             int flag=WindowManager.LayoutParams.FLAG_FULLSCREEN;
             //设置当前窗体为全屏显示
             window.setFlags(flag, flag);

@@ -79,7 +79,7 @@ public class ContactActivity extends BaseActivity {
     }
     @Override
     public void initData() {
-        contacts.addAll(Contact.getEnglishContacts());
+        //contacts.addAll(Contact.getEnglishContacts());
     }
 
     private void setData() {

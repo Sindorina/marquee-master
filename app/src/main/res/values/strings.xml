@@ -9,7 +9,7 @@
     <string name="not_support">手机硬件不支持指纹识别</string>
     <string name="title_font">满江红</string>
     <string name="back">返回</string>
-    <string name="change_replace">文字设置规范%1$s</string>
+    <string name="change_replace">文字设置规范%1$d%%</string>
     <string name="blur">毛玻璃效果</string>
     <string name="my_access_token">pk.eyJ1IjoicTI1MjU0OTA2NyIsImEiOiJjamd5dG5neTYwOTFvMnFxbGgxdGlrenFpIn0.geBx1WwGunHXJc1sJcaGHQ</string>
     <string name="hide_danmaku">hide</string>
@@ -23,7 +23,7 @@
 
     <string name="release">release</string>
     <string name="rotate">旋转屏幕</string>
-    <string name="action_settings">Settings
-    </string>
+    <string name="action_settings">Settings</string>
+    <string name="test_str">当前解压进度:%1$s%</string>
 
 </resources>

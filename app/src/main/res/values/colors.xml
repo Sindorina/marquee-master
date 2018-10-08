@@ -21,8 +21,39 @@
     <color name="purple_normal">#9932CC</color>
     <color name="purple_pressed">#9F79EE</color>
 
-    <color name="white">#FFFFFFFF</color>
+
     <color name="white_pressed">#FFCFCFCF</color>
 
-    <color name="divider_color">#FFB7B2B2</color>
+
+
+    <color name="transparent">#00000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="main_text_color">#333333</color>
+    <color name="color_50000000">#50000000</color>
+    <color name="black_3">#333333</color>
+    <color name="green">#43c117</color>
+    <color name="green_70">#AD43c117</color>
+    <color name="bar_grey">#393a3e</color>
+    <color name="bar_grey_90">#dd393a3e</color>
+    <color name="divider_color">#E9E9E9</color>
+    <color name="content_grey">#353535</color>
+    <color name="image_overlay">#20000000</color>
+    <color name="image_overlay2">#80000000</color>
+    <color name="white_text_selector">#000000</color>
+    <color name="date_picker_text1">#59B29C</color>
+    <color name="date_picker_text2">#333333</color>
+    <color name="date_picker_split_line">#11112233</color>
+    <color name="login_button_color">#0bbd9e</color>
+    <color name="text_green">#0bbd9e</color>
+    <drawable name="black_normal_select">#D8333333</drawable>
+    <drawable name="black_press_select">#353535</drawable>
+    <color name="color_333333">#333333</color>
+    <color name="color_999999">#999999</color>
+    <color name="color_666666">#666666</color>
+    <color name="port_divider">#E9E9E9</color>
+    <color name="circular_red">#8fc6fd</color>
+    <color name="circular_blue">#8fc6fd</color>
+    <color name="circular_yellow">#8fc6fd</color>
+    <color name="circular_green">#8fc6fd</color>
+    <color name="main_color">#FA7C20</color>
 </resources>

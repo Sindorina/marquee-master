@@ -12,6 +12,8 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -76,6 +78,13 @@ public class WebViewActivity extends BaseActivity {
                 dialog.dismiss();
                 super.onPageFinished(view, url);
             }
+
+            @Override
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                super.onReceivedError(view, request, error);
+                Log.e("WebViewActivity",error.toString());
+                Log.e("WebViewActivity","2222222222222222");
+            }
         });
         //设置浏览器
         webView.setWebChromeClient(new WebChromeClient() {
@@ -93,6 +102,7 @@ public class WebViewActivity extends BaseActivity {
                     pb.setVisibility(View.GONE);
                 }
             }
+
         });
     }
 

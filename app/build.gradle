@@ -46,6 +46,9 @@ android {
             path 'CMakeLists.txt'
         }
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -102,4 +105,5 @@ dependencies {
     implementation files('src/main/jniLibs/facetracking.jar')
     implementation files('src/main/jniLibs/genderestimation.jar')
     implementation 'com.guo.android_extend:android-extend:1.0.5'
+    api 'com.github.Aspsine:SwipeToLoadLayout:v1.0.0'
 }

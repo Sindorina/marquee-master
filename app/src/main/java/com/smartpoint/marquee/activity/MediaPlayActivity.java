@@ -482,28 +482,10 @@ public class MediaPlayActivity extends BaseActivity {
     }
     private IDanmakuView mDanmakuView;
 
-    private View mMediaController;
-
-    public PopupWindow mPopupWindow;
-
-    private Button mBtnRotate;
-
-    private Button mBtnHideDanmaku;
-
-    private Button mBtnShowDanmaku;
-
     private BaseDanmakuParser mParser;
 
-    private Button mBtnPauseDanmaku;
-
-    private Button mBtnResumeDanmaku;
-
-    private Button mBtnSendDanmaku;
-
-    private Button mBtnSendDanmakuTextAndImage;
-
-    private Button mBtnSendDanmakus;
     private DanmakuContext mContext;
+
     private BaseCacheStuffer.Proxy mCacheStufferAdapter = new BaseCacheStuffer.Proxy() {
 
         private Drawable mDrawable;
@@ -639,12 +621,11 @@ public class MediaPlayActivity extends BaseActivity {
 
                 @Override
                 public boolean onViewClick(IDanmakuView view) {
-                    mMediaController.setVisibility(View.VISIBLE);
                     return false;
                 }
             });
             mDanmakuView.prepare(mParser, mContext);
-            mDanmakuView.showFPS(true);
+            mDanmakuView.showFPS(false);
             mDanmakuView.enableDanmakuDrawingCache(true);
         }
     }

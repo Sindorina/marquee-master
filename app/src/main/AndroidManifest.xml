@@ -70,7 +70,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.RxJavaLearnActivity" />
-        <activity android:name=".activity.WebViewActivity" />
+        <activity android:name=".activity.WebViewActivity" android:screenOrientation="landscape"/>
         <activity android:name=".activity.VRActivity" />
         <activity android:name=".activity.TencentWebViewActivity" />
         <activity android:name=".activity.PickerViewActivity" />
@@ -175,6 +175,7 @@
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.DetecterActivity" />
         <activity android:name=".activity.UnzipActivity" />
+        <activity android:name=".activity.SurfaceViewDrawActivity" />
         <!-- Required SDK 核心功能-->
         <!-- 可配置android:process参数将PushService放在其他进程中 -->
         <service

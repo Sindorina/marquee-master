@@ -23,7 +23,7 @@ import com.smartpoint.view.MySurfaceViewTest;
  * Created by Administrator on 2018/6/6
  * 邮箱 18780569202@163.com
  */
-public class SurfaceViewDrawActivity2 extends BaseActivity {
+public class SurfaceViewDrawActivity2 extends AppCompatActivity {
     public static void start(Activity activity) {
         Intent intent = new Intent(activity, SurfaceViewDrawActivity2.class);
         activity.startActivity(intent);
@@ -32,25 +32,13 @@ public class SurfaceViewDrawActivity2 extends BaseActivity {
     private LinearLayout.LayoutParams params;
 
     @Override
-    public int getContentViewId() {
-        return R.layout.activity2_surface_view;
-    }
-
-    @Override
-    public void beforeInitView() {
-
-    }
-
-    @Override
-    public void initView() {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity2_surface_view);
         root = findViewById(R.id.root);
         params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT);
     }
 
-    @Override
-    public void initData() {
-
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -87,8 +75,4 @@ public class SurfaceViewDrawActivity2 extends BaseActivity {
         return true;
     }
 
-    @Override
-    public void onClick(View v) {
-
-    }
 }

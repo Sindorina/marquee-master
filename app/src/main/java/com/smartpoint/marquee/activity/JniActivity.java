@@ -27,7 +27,7 @@ public class JniActivity extends AppCompatActivity {
     private Button reUploadBtn,setWifiBtn;
     private TextView tv,versionTV;
     private WebView mapView;
-    private String changeStr = "changeWords";
+    private int changeStr = 546565;
     public static void start(Activity activity) {
         Intent intent = new Intent(activity, JniActivity.class);
         activity.startActivity(intent);

@@ -2,9 +2,13 @@ package com.smartpoint.marquee.activity;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -60,6 +64,26 @@ public class ZxinActivity extends BaseActivity {
                 parse();
             }
         });
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (textView.getText().toString().trim().startsWith("http")){
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(ZxinActivity.this);
+                    builder.setTitle("是否要跳转到目标网页").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            TencentWebViewActivity.start(ZxinActivity.this,textView.getText().toString().trim());
+                        }
+                    }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Toast.makeText(ZxinActivity.this,"已取消加载目标网页",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    builder.create().show();
+                }
+            }
+        });
     }
 
     @Override
@@ -74,7 +98,7 @@ public class ZxinActivity extends BaseActivity {
     }
     //生成二维码带logo
     public void createImg(){
-        Bitmap logoBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+        Bitmap logoBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.flower);
         Bitmap bitmap = null;
         bitmap = BitmapUtil.createQRImage(testUrl,256,logoBitmap);
         iv.setImageBitmap(bitmap);
@@ -98,8 +122,11 @@ public class ZxinActivity extends BaseActivity {
         if (requestCode == SCANNING_CODE && resultCode == RESULT_OK) {
             if (data != null) {
                 String content = data.getStringExtra(CodeUtils.RESULT_STRING);
-                textView.setText("扫描结果： " + content);
+                textView.setText(content);
                 if (content.startsWith("http")){
+                    textView.setTextColor(Color.GREEN);
+                    textView.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG); //下划线
+                    textView.getPaint().setAntiAlias(true);//抗锯齿
                     TencentWebViewActivity.start(ZxinActivity.this,content);
                 }
             }
