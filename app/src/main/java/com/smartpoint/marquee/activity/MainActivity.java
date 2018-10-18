@@ -46,6 +46,7 @@ import com.smartpoint.GlideImageLoader;
 import com.smartpoint.adapter.MyAdapter;
 import com.smartpoint.adapter.RefreshAdapter;
 import com.smartpoint.marquee.AEStool;
+import com.smartpoint.marquee.IntentUtil;
 import com.smartpoint.marquee.MD5Util;
 import com.smartpoint.marquee.R;
 import com.smartpoint.marquee.base.BaseActivity;
@@ -625,7 +626,7 @@ public class MainActivity extends BaseActivity {
                         LitePalActivity.start(MainActivity.this);
                         break;
                     case 9://新扫码枪
-                        DecodeActivity.start(MainActivity.this);
+                        openPopWindow("功能未开启!");
                         break;
                     case 10://jni测试
                         JniActivity.start(MainActivity.this);
@@ -702,6 +703,9 @@ public class MainActivity extends BaseActivity {
                     case 29://人脸识别
                         FaceRecognizeActivity.start(MainActivity.this);
                         break;
+                    case 30://人脸识别
+                        IntentUtil.openActivity(MainActivity.this,DocumentReadingActivity.class);
+                        break;
                 }
             }
         });
@@ -746,6 +750,7 @@ public class MainActivity extends BaseActivity {
         listInfo.add("弹幕测试");
         listInfo.add("视频展示");
         listInfo.add("人脸识别");
+        listInfo.add("阅读器");
         adapter1.getContacts().addAll(listInfo);
         adapter1.notifyDataSetChanged();
         smartRefreshLayout.finishLoadMore();

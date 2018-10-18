@@ -2,25 +2,18 @@ package com.smartpoint.marquee.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.Button;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshFooter;
-import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.constant.RefreshState;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smartrefresh.layout.listener.OnMultiPurposeListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.smartpoint.adapter.RefreshAdapter;
 import com.smartpoint.entity.Movie;
@@ -33,13 +26,17 @@ import com.smartpoint.retrofit.RetrofitFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class RxJavaLearnActivity extends BaseActivity {
@@ -48,6 +45,8 @@ public class RxJavaLearnActivity extends BaseActivity {
     private RecyclerView recyclerView;
     private RefreshAdapter adapter;
     private List<String> list;
+    private Button btn;
+    private Disposable disposable;
     public static void start(Activity activity) {
         Intent intent = new Intent(activity, RxJavaLearnActivity.class);
         activity.startActivity(intent);
@@ -67,6 +66,8 @@ public class RxJavaLearnActivity extends BaseActivity {
     @Override
     public void initView() {
         initRefresh();
+        btn = findViewByIdNoCast(R.id.btn);
+        btn.setOnClickListener(this);
     }
 
     @Override
@@ -200,7 +201,34 @@ public class RxJavaLearnActivity extends BaseActivity {
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btn:
+                disposable = Flowable.intervalRange(0,11,0,1, TimeUnit.SECONDS)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .doOnNext(new Consumer<Long>() {
+                            @Override
+                            public void accept(Long aLong) throws Exception {
+                                btn.setText("重新获取(" + (10 - aLong) + ")");
+                                btn.setEnabled(false);
+                            }
+                        }).doOnComplete(new Action() {
+                            @Override
+                            public void run() throws Exception {
+                                //倒计时完毕置为可点击状态
+                                btn.setEnabled(true);
+                                btn.setText("获取验证码");
+                            }
+                        }).subscribe();
+                break;
+        }
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(disposable != null){
+            disposable.dispose();
+        }
     }
 }
 

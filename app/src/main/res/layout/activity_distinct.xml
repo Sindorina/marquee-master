@@ -3,18 +3,54 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:textSize="30sp"
+        android:textStyle="italic"
+        android:text="set去重" />
+
     <TextView
         android:id="@+id/textView"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
-        android:textSize="30sp"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:textSize="30sp" />
+
     <TextView
         android:id="@+id/textView2"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:textSize="30sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:textSize="30sp"
-        android:layout_height="wrap_content" />
+        android:textStyle="italic"
+        android:gravity="center"
+        android:text="RxJava2去重" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:textSize="30sp" />
 </LinearLayout>

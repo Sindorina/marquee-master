@@ -4,9 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Build;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -21,13 +18,19 @@ import android.webkit.WebViewClient;
 import com.daimajia.numberprogressbar.NumberProgressBar;
 import com.smartpoint.marquee.R;
 import com.smartpoint.marquee.base.BaseActivity;
+import com.smartpoint.util.LogUtils;
 import com.smartpoint.view.MyProgressDialog;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.concurrent.TimeUnit;
 
-import retrofit2.http.PUT;
+import io.reactivex.Flowable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 
 public class WebViewActivity extends BaseActivity {
     public static void start(Activity activity) {
@@ -40,7 +43,7 @@ public class WebViewActivity extends BaseActivity {
     private String url = "https://project.signp.cn/entrance/main?s=LgyoCS83s+lmEK1O/FGkcHj/HzQrrxsznWkNZNqf2r4=&f=7V3uqkwei7Z0WQADK/e50MCTY+vQt/gcwnN9hbV0IMI=&tpl=21.5";
     private MyProgressDialog dialog;
     private NumberProgressBar pb;//进度条
-
+    private Disposable disposable;
     @Override
     public int getContentViewId() {
         return R.layout.activity_webview;
@@ -84,6 +87,20 @@ public class WebViewActivity extends BaseActivity {
                 super.onReceivedError(view, request, error);
                 Log.e("WebViewActivity",error.toString());
                 Log.e("WebViewActivity","2222222222222222");
+                disposable = Flowable.intervalRange(0,11,0,1, TimeUnit.SECONDS)
+                        .doOnNext(new Consumer<Long>() {
+                            @Override
+                            public void accept(Long aLong) throws Exception {
+                                LogUtils.logE("WebViewActivity","countTime-->"+aLong);
+                            }
+                        })
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .doOnComplete(new Action() {
+                            @Override
+                            public void run() throws Exception {
+                                webView.loadUrl(testUrl1);
+                            }
+                        }).subscribe();
             }
         });
         //设置浏览器
@@ -154,6 +171,9 @@ public class WebViewActivity extends BaseActivity {
             ((ViewGroup) webView.getParent()).removeView(webView);
             webView.destroy();
             webView = null;
+        }
+        if (disposable!=null){
+            disposable.dispose();
         }
     }
 

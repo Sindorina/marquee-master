@@ -15,6 +15,22 @@ public class Contact {
         this.name = name;
     }
 
+    public void setIndex(String index) {
+        this.index = index;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Contact{" +
+                "index='" + index + '\'' +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
     public String getIndex() {
         return index;
     }

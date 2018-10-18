@@ -20,12 +20,24 @@ public class PingYinUtil {
         char ch = characters.charAt(0);
         if ((ch >> 7) == 0) {
             // 判断是否为汉字，如果左移7为为0就不是汉字，否则是汉字
+            boolean isLiter = false;
+            if (ch >= 97&& ch<= 122 || ch >=65 && ch <= 90){
+                isLiter = true;
+            }
+            if (isLiter){
+                char c = Character.toUpperCase(ch);
+                LogUtils.logE("SSS","首字母-->"+c +" 原字符-->"+characters);
+                return c;
+            }else {
+                return '#';
+            }
+
         } else {
             char spell = getFirstLetter(ch);
             spell-=32;
+            LogUtils.logE("SSS","首字母-->"+spell+" 原字符-->"+characters);
             return spell;
         }
-        return '0';
     }
     // 获取一个汉字的首字母
     private static Character getFirstLetter(char ch) {

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<litepal xmlns:android="http://schemas.android.com/apk/res/android">
-    <dbname value = "demo"></dbname>
+<litepal>
+    <dbname value = "txt_data"></dbname>
     <version value = "1"></version>
     <list>
         <mapping class = "com.smartpoint.entity.User"></mapping>
+        <mapping class="com.smartpoint.entity.MainContent"></mapping>
     </list>
+    <cases value="keep" ></cases>
 </litepal>

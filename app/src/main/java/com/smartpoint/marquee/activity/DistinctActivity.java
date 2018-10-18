@@ -16,6 +16,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import io.reactivex.Observable;
+import io.reactivex.functions.Consumer;
+
 /**
  * Created by Administrator on 2018/5/21
  * 邮箱 18780569202@163.com
@@ -26,7 +29,7 @@ public class DistinctActivity extends BaseActivity {
         activity.startActivity(intent);
     }
 
-    TextView textView,textView2;
+    TextView textView,textView2,textView3,textView4;
     @Override
     public int getContentViewId() {
         return R.layout.activity_distinct;
@@ -41,7 +44,10 @@ public class DistinctActivity extends BaseActivity {
     public void initView() {
         textView = findViewById(R.id.textView);
         textView2 = findViewById(R.id.textView2);
+        textView3 = findViewById(R.id.textView3);
+        textView4 = findViewById(R.id.textView4);
         testDistinct();
+        RxJavaDistinct();
     }
 
     @Override
@@ -86,6 +92,23 @@ public class DistinctActivity extends BaseActivity {
         }
     }
 
+    private void RxJavaDistinct(){
+        List<String> list = new ArrayList<>();
+        list.add("厕所");list.add("厕所");
+        list.add("楼梯");list.add("护士站");
+        list.add("厕所");
+        textView3.append("原数据-->");
+        for (String s:list){
+            textView3.append(s);
+        }
+        textView4.append("去重后数据-->");
+        Observable.fromArray(list.toArray()).distinct().subscribe(new Consumer<Object>() {
+            @Override
+            public void accept(Object o) throws Exception {
+                textView4.append(o.toString());
+            }
+        });
+    }
     @Override
     public void onClick(View v) {
 

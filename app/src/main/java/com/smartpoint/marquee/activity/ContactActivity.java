@@ -2,9 +2,6 @@ package com.smartpoint.marquee.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -19,7 +16,6 @@ import com.smartpoint.util.LogUtils;
 import com.smartpoint.util.PingYinUtil;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -27,6 +23,7 @@ import java.util.Set;
 /**
  * Created by Administrator on 2018/4/27
  * 邮箱 18780569202@163.com
+ * 使用本例子的字母索引 需要对数据先进行首字母的排序
  */
 public class ContactActivity extends BaseActivity {
     public static void start(Activity activity) {
@@ -40,6 +37,8 @@ public class ContactActivity extends BaseActivity {
     private String[] indexArray;
     private  char[] chars;
     private static final String TAG = "ContactActivity";
+    private List<String> list = new ArrayList<>();
+    private List<Contact> list2 = new ArrayList<>();
     @Override
     public int getContentViewId() {
         return R.layout.activity_contact;
@@ -83,39 +82,49 @@ public class ContactActivity extends BaseActivity {
     }
 
     private void setData() {
-        List<String> list = new ArrayList<>();
-        List<Contact> list2 = new ArrayList<>();
-        list.add("北京");
-        list.add("播放");
-        list.add("人多");
-        list.add("提示");
-        list.add("一上线");
-        list.add("欧典");
-        list.add("李四");
-        list.add("是否");
-        list.add("奥迪");
-        list.add("傲");
-        list.add("北京");
-        list.add("播放");
-        list.add("人多");
-        list.add("提示");
-        list.add("一上线");
-        list.add("欧典");
-        list.add("李四");
-        list.add("是否");
-        list.add("奥迪");
-        list.add("傲");
+
+//        list.add("Ace");
+//        list.add("奥迪");
+//        list.add("Bie");
+//        list.add("北京");
+//        list.add("播放");
+//        list.add("大萨达");
+//        list.add("对的桑");
+//        list.add("大沙发");
+//        list.add("鼓风机股份");
+//        list.add("换个房间四");
+//        list.add("和代发货的");
+//        list.add("合同法一家人");
+//        list.add("库花园路");
+//        list.add("李四");
+//        list.add("欧典");
+//        list.add("人多");
+//        list.add("是否");
+//        list.add("提示");
+//        list.add("一上线");
+//        list.add("已投入");
+//        list.add("与话题");
+        list.add("ac"); list.add("在"); list.add("呀"); list.add("吧");
+        list.add("个"); list.add("额"); list.add("c"); list.add("acd");
         indexArray = new String[list.size()];
         chars = new char[list.size()];
+
         for (int i = 0; i < list.size(); i++) {
             char p = PingYinUtil.getSpells(list.get(i));
             chars[i] = p;
+
+
+            Contact contact = new Contact(p +"",list.get(i));
+            list2.add(contact);
         }
-        Arrays.sort(chars);
-        for (int j=0;j<chars.length;j++){
-            indexArray[j] = chars[j]+"";
-            list2.add(new Contact(chars[j]+"",list.get(j)));
-        }
+        sortContact();
+//        for (int j=0;j<chars.length;j++){
+//                indexArray[j] = chars[j]+"";
+//                Contact contact = new Contact(chars[j]+"",list.get(j));
+//                list2.add(contact);
+//                LogUtils.logE("SSS","处理好item-->"+contact.toString());
+//        }
+
         contacts.addAll(list2);
     }
     /**
@@ -139,5 +148,27 @@ public class ContactActivity extends BaseActivity {
     @Override
     public void onClick(View v) {
 
+    }
+
+    private void sortContact(){
+        for (int i = 0 ; i < list2.size() ; i++){
+            for (int j = 0 ; j < list2.size()-i-1 ; j++){
+                char a = list2.get(j).getIndex().charAt(0);
+                char b = list2.get(j+1).getIndex().charAt(0);
+                String resA = list2.get(j).getName();
+                String resB = list2.get(j+1).getName();
+                if ( a > b){
+                    String temp = list2.get(j).getIndex();
+                    list2.get(j).setName(resB);
+                    list2.get(j+1).setName(resA);
+                    list2.get(j).setIndex(list2.get(j+1).getIndex());
+                    list2.get(j+1).setIndex(temp);
+                }
+            }
+        }
+        for (int k=0;k<list2.size();k++){
+            indexArray[k] = list2.get(k).getIndex();
+            LogUtils.logE("yyyy","排序后-->"+list2.get(k).toString());
+        }
     }
 }
