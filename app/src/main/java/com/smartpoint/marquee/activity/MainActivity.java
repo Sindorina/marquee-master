@@ -14,7 +14,6 @@ import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.NonNull;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -37,11 +36,8 @@ import android.widget.Toast;
 
 import com.kyleduo.switchbutton.SwitchButton;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.smartpoint.GlideImageLoader;
 import com.smartpoint.adapter.MyAdapter;
 import com.smartpoint.adapter.RefreshAdapter;
@@ -451,11 +447,11 @@ public class MainActivity extends BaseActivity {
 
                     @Override
                     public void onNext(Permission permission) {
-                        if (permission.granted) {
+                        if (permission.granted) {//权限已同意
                             // install(MainActivity.this, Environment.getExternalStorageDirectory().getAbsolutePath() + "/123.apk");
-                        } else if (permission.shouldShowRequestPermissionRationale) {
+                        } else if (permission.shouldShowRequestPermissionRationale) {//拒绝了权限且勾选了不再提示
                             return;
-                        } else {
+                        } else {//拒绝权限
                             return;
                         }
                     }
@@ -555,19 +551,23 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initBanner() {
-        list.add("http://pic5.photophoto.cn/20071228/0034034901778224_b.jpg");
-        list.add("http://pic21.photophoto.cn/20111106/0020032891433708_b.jpg");
-        list.add("http://pic9.photophoto.cn/20081128/0033033999061521_b.jpg");
-        list.add("http://imgsrc.baidu.com/imgad/pic/item/34fae6cd7b899e51fab3e9c048a7d933c8950d21.jpg");
-        list.add("http://pic17.nipic.com/20111022/8575840_114126243000_2.jpg");
-        list.add("http://imgsrc.baidu.com/image/c0%3Dpixel_huitu%2C0%2C0%2C294%2C40/sign=aa22fdf148166d222c7a1dd42f5b6c9b/5ab5c9ea15ce36d32ae0f90a31f33a87e950b120.jpg");
-        list.add("http://pic11.photophoto.cn/20090415/0020032851022998_b.jpg");
-        list.add("http://imgsrc.baidu.com/image/c0%3Dshijue1%2C0%2C0%2C294%2C40/sign=5e310a4ddb09b3deffb2ec2ba4d606f4/9d82d158ccbf6c81887581cdb63eb13533fa4050.jpg");
-        list.add("http://pic32.photophoto.cn/20140817/0034034463193076_b.jpg");
+        listImg.add("http://pic5.photophoto.cn/20071228/0034034901778224_b.jpg");
+        listImg.add("http://pic21.photophoto.cn/20111106/0020032891433708_b.jpg");
+        listImg.add("http://pic9.photophoto.cn/20081128/0033033999061521_b.jpg");
+        listImg.add("http://imgsrc.baidu.com/imgad/pic/item/34fae6cd7b899e51fab3e9c048a7d933c8950d21.jpg");
+        listImg.add("http://pic17.nipic.com/20111022/8575840_114126243000_2.jpg");
+        listImg.add("http://imgsrc.baidu.com/image/c0%3Dpixel_huitu%2C0%2C0%2C294%2C40/sign=aa22fdf148166d222c7a1dd42f5b6c9b/5ab5c9ea15ce36d32ae0f90a31f33a87e950b120.jpg");
+        listImg.add("http://pic11.photophoto.cn/20090415/0020032851022998_b.jpg");
+        listImg.add("http://imgsrc.baidu.com/image/c0%3Dshijue1%2C0%2C0%2C294%2C40/sign=5e310a4ddb09b3deffb2ec2ba4d606f4/9d82d158ccbf6c81887581cdb63eb13533fa4050.jpg");
+        listImg.add("http://pic32.photophoto.cn/20140817/0034034463193076_b.jpg");
+        GlideImageLoader loader = new GlideImageLoader();
         banner = findViewByIdNoCast(R.id.banner);
-        banner.setImageLoader(new GlideImageLoader());
-        banner.setImages(list);
-        banner.start();
+        banner.setImageLoader(loader)
+                .setImages(listImg)
+                .start();
+        banner.setOnBannerListener(position -> {
+            Toast.makeText(MainActivity.this,"点击了-->"+listImg.get(position),Toast.LENGTH_SHORT).show();
+        });
     }
 
     private void initRefresh() {
@@ -579,142 +579,136 @@ public class MainActivity extends BaseActivity {
         recyclerView.setAdapter(adapter1);
         smartRefreshLayout.setRefreshHeader(new ClassicsHeader(this));
         smartRefreshLayout.setRefreshFooter(new ClassicsFooter(this));
-        smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                adapter1.getContacts().clear();
-                setFuncInfo();
-            }
+        smartRefreshLayout.setOnRefreshListener(refreshLayout -> {
+            adapter1.getContacts().clear();
+            setFuncInfo();
         });
-        smartRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                adapter1.getContacts().clear();
-                setFuncInfo();
-            }
+        smartRefreshLayout.setOnLoadMoreListener(refreshLayout -> {
+            adapter1.getContacts().clear();
+            setFuncInfo();
         });
         setFuncInfo();
-        adapter1.setOnItemClick(new RefreshAdapter.OnItemClick() {
-            @Override
-            public void clickItem(int position) {
-                switch (position) {
-                    case 0://webView
-                        WebViewActivity.start(MainActivity.this);
-                        break;
-                    case 1://vr
-                        VRActivity.start(MainActivity.this);
-                        break;
-                    case 2://选择器
-                        PickerViewActivity.start(MainActivity.this);
-                        break;
-                    case 3://腾讯webview
-                        TencentWebViewActivity.start(MainActivity.this);
-                        break;
-                    case 4://播放器
-                        MediaPlayActivity.start(MainActivity.this);
-                        break;
-                    case 5://二维码
-                        ZxinActivity.start(MainActivity.this);
-                        break;
-                    case 6://覆盖安装
-                        openPopWindow("功能未开启!");
-                        break;
-                    case 7://数据库
-                        SQLiteActivity.start(MainActivity.this);
-                        break;
-                    case 8://litePal数据库
-                        LitePalActivity.start(MainActivity.this);
-                        break;
-                    case 9://新扫码枪
-                        openPopWindow("功能未开启!");
-                        break;
-                    case 10://jni测试
-                        JniActivity.start(MainActivity.this);
-                        break;
-                    case 11://重启
-                        openPopWindow("功能未开启!");
-                        break;
-                    case 12://页面亮度展示
-                        if (lightSwitch) {
-                            lightSwitch = false;
-                            lightTest(-1.0f);
-                        } else {
-                            lightSwitch = true;
-                            lightTest(0.00000000000000000000000000001f);
-                        }
-                        break;
-                    case 13://锁屏
-                        ScreenLockActivity.start(MainActivity.this);
-                        break;
-                    case 14://倒计时
-                        CountDownTimerActivity.start(MainActivity.this);
-                        break;
-                    case 15://字符拆分
-                        GoogleActivity.start(MainActivity.this);
-                        break;
-                    case 16://去重
-                        DistinctActivity.start(MainActivity.this);
-                        break;
-                    case 17://SVG
-                        SvgActivity.start(MainActivity.this);
-                        break;
-                    case 18://指纹识别
-                        FingerprintsRecogActivity.start(MainActivity.this);
-                        break;
-                    case 19://图片选择
-                        ChoosePictureActivity.start(MainActivity.this);
-                        break;
-                    case 20://下载与毛玻璃圆角
-                        DownloadActivity.start(MainActivity.this);
-                        break;
-                    case 21://侧滑删除
-                        SideDeleteActivity.start(MainActivity.this);
-                        break;
-                    case 22://字体颜色文本
-                        RichEditorActivity.start(MainActivity.this);
-                        break;
-                    case 23://讯飞语音
-                        XfVoiceActivity.start(MainActivity.this);
-                        break;
-                    case 24://MapBox
-                        ComponentName componetName = new ComponentName(
-                                "testapp.mapboxsdk.mapbox.com.mapviewtest",  //这个是另外一个应用程序的包名
-                                "testapp.mapboxsdk.mapbox.com.mapviewtest.MainActivity");   //这个参数是要启动的Activity的全路径名
-                        try {
-                            Intent intent = new Intent();
-                            intent.setComponent(componetName);
-                            startActivity(intent);
-                        } catch (Exception e) {
-                            Toast.makeText(getApplicationContext(), "可以在这里提示用户没有找到应用程序，或者是做其他的操作！", Toast.LENGTH_SHORT).show();
-                        }
-                        break;
-                    case 25://SVGA
-                        SvgaActivity.start(MainActivity.this);
-                        break;
-                    case 26://RXjava
-                        RxJavaLearnActivity.start(MainActivity.this);
-                        break;
-                    case 27://弹幕
-                        DanMuActivity.start(MainActivity.this);
-                        break;
-                    case 28://视频展示
-                        VideoShowActivity.start(MainActivity.this);
-                        break;
-                    case 29://人脸识别
-                        FaceRecognizeActivity.start(MainActivity.this);
-                        break;
-                    case 30://人脸识别
-                        IntentUtil.openActivity(MainActivity.this,DocumentReadingActivity.class);
-                        break;
-                }
+        adapter1.setOnItemClick(position -> {
+            switch (position) {
+                case 0://webView
+                    WebViewActivity.start(MainActivity.this);
+                    break;
+                case 1://vr
+                    VRActivity.start(MainActivity.this);
+                    break;
+                case 2://选择器
+                    PickerViewActivity.start(MainActivity.this);
+                    break;
+                case 3://腾讯webview
+                    TencentWebViewActivity.start(MainActivity.this);
+                    break;
+                case 4://播放器
+                    MediaPlayActivity.start(MainActivity.this);
+                    break;
+                case 5://二维码
+                    ZxinActivity.start(MainActivity.this);
+                    break;
+                case 6://覆盖安装
+                    openPopWindow("功能未开启!");
+                    break;
+                case 7://数据库
+                    SQLiteActivity.start(MainActivity.this);
+                    break;
+                case 8://litePal数据库
+                    LitePalActivity.start(MainActivity.this);
+                    break;
+                case 9://新扫码枪
+                    openPopWindow("功能未开启!");
+                    break;
+                case 10://jni测试
+                    JniActivity.start(MainActivity.this);
+                    break;
+                case 11://重启
+                    openPopWindow("功能未开启!");
+                    break;
+                case 12://页面亮度展示
+                    if (lightSwitch) {
+                        lightSwitch = false;
+                        lightTest(-1.0f);
+                    } else {
+                        lightSwitch = true;
+                        lightTest(0.00000000000000000000000000001f);
+                    }
+                    break;
+                case 13://锁屏
+                    ScreenLockActivity.start(MainActivity.this);
+                    break;
+                case 14://倒计时
+                    CountDownTimerActivity.start(MainActivity.this);
+                    break;
+                case 15://字符拆分
+                    GoogleActivity.start(MainActivity.this);
+                    break;
+                case 16://去重
+                    DistinctActivity.start(MainActivity.this);
+                    break;
+                case 17://SVG
+                    SvgActivity.start(MainActivity.this);
+                    break;
+                case 18://指纹识别
+                    FingerprintsRecogActivity.start(MainActivity.this);
+                    break;
+                case 19://图片选择
+                    ChoosePictureActivity.start(MainActivity.this);
+                    break;
+                case 20://下载与毛玻璃圆角
+                    DownloadActivity.start(MainActivity.this);
+                    break;
+                case 21://侧滑删除
+                    SideDeleteActivity.start(MainActivity.this);
+                    break;
+                case 22://字体颜色文本
+                    RichEditorActivity.start(MainActivity.this);
+                    break;
+                case 23://讯飞语音
+                    XfVoiceActivity.start(MainActivity.this);
+                    break;
+                case 24://MapBox
+                    ComponentName componetName = new ComponentName(
+                            "testapp.mapboxsdk.mapbox.com.mapviewtest",  //这个是另外一个应用程序的包名
+                            "testapp.mapboxsdk.mapbox.com.mapviewtest.MainActivity");   //这个参数是要启动的Activity的全路径名
+                    try {
+                        Intent intent = new Intent();
+                        intent.setComponent(componetName);
+                        startActivity(intent);
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), "可以在这里提示用户没有找到应用程序，或者是做其他的操作！", Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+                case 25://SVGA
+                    SvgaActivity.start(MainActivity.this);
+                    break;
+                case 26://RXjava
+                    RxJavaLearnActivity.start(MainActivity.this);
+                    break;
+                case 27://弹幕
+                    DanMuActivity.start(MainActivity.this);
+                    break;
+                case 28://视频展示
+                    VideoShowActivity.start(MainActivity.this);
+                    break;
+                case 29://人脸识别
+                    FaceRecognizeActivity.start(MainActivity.this);
+                    break;
+                case 30://阅读器
+                    IntentUtil.openActivity(MainActivity.this,DocumentReadingActivity.class);
+                    break;
+                case 31://骨架默认图
+                    SkeletonActivity.start(MainActivity.this);
+                    break;
             }
         });
     }
 
     private RefreshAdapter adapter1;
     private Banner banner;
-    private List<String> list = new ArrayList<>();
-
+    private List<String> listImg = new ArrayList<>();
+    private List<String> list;
     /**
      * 设置功能列表数据
      */
@@ -751,6 +745,7 @@ public class MainActivity extends BaseActivity {
         listInfo.add("视频展示");
         listInfo.add("人脸识别");
         listInfo.add("阅读器");
+        listInfo.add("骨架默认图");
         adapter1.getContacts().addAll(listInfo);
         adapter1.notifyDataSetChanged();
         smartRefreshLayout.finishLoadMore();
@@ -778,12 +773,7 @@ public class MainActivity extends BaseActivity {
             mediaPlayer.setDataSource(bgms[index]);
             mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             mediaPlayer.prepareAsync();
-            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mediaPlayer) {
-                    mediaPlayer.start();
-                }
-            });
+            mediaPlayer.setOnPreparedListener(mediaPlayer -> mediaPlayer.start());
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -792,23 +782,17 @@ public class MainActivity extends BaseActivity {
 
     private void initPlayer() {
         mediaPlayer = new MediaPlayer();
-        mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
-            @Override
-            public boolean onError(MediaPlayer mp, int what, int extra) {
-                openPopWindow("BGM播放错误");
-                return false;
-            }
+        mediaPlayer.setOnErrorListener((mp, what, extra) -> {
+            openPopWindow("BGM播放错误");
+            return false;
         });
-        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                if (curBgm == 2) {
-                    playMusic(0);
-                    curBgm = 0;
-                } else {
-                    playMusic(curBgm + 1);
-                    curBgm++;
-                }
+        mediaPlayer.setOnCompletionListener(mp -> {
+            if (curBgm == 2) {
+                playMusic(0);
+                curBgm = 0;
+            } else {
+                playMusic(curBgm + 1);
+                curBgm++;
             }
         });
     }

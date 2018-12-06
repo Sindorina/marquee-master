@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:Skeleton="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="10dp"
+    app:cardUseCompatPadding="true"
+    app:contentPadding="0dp">
+
+    <io.rmiri.skeleton.SkeletonGroup
+        android:id="@+id/skeletonGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        Skeleton:SK_BackgroundViewsColor="#EEEEEE"
+        Skeleton:SK_animationAutoStart="true"
+        Skeleton:SK_animationDirection="LTR"
+        Skeleton:SK_animationDuration="1000"
+        Skeleton:SK_animationFinishType="gradient"
+        Skeleton:SK_animationNormalType="gradient"
+        Skeleton:SK_backgroundMainColor="@android:color/transparent"
+        Skeleton:SK_highLightColor="#DEDEDE">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <io.rmiri.skeleton.SkeletonView
+                android:id="@+id/skeletonViewPhoto"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                Skeleton:SK_cornerRadius="0dp"
+                Skeleton:SK_padding="0dp"
+                Skeleton:SK_shapeType="rect">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                     />
+
+            </io.rmiri.skeleton.SkeletonView>
+
+            <io.rmiri.skeleton.SkeletonView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/skeletonViewPhoto"
+                Skeleton:SK_cornerRadius="10dp"
+                Skeleton:SK_padding="5dp"
+                Skeleton:SK_shapeType="rect">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                     />
+            </io.rmiri.skeleton.SkeletonView>
+        </RelativeLayout>
+    </io.rmiri.skeleton.SkeletonGroup>
+</android.support.v7.widget.CardView>
+

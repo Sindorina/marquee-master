@@ -2,11 +2,9 @@ package com.smartpoint.marquee.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.pixplicity.sharp.Sharp;
 import com.smartpoint.marquee.R;
 import com.smartpoint.marquee.base.BaseActivity;
 
@@ -32,7 +30,7 @@ public class SvgActivity extends BaseActivity {
 
     @Override
     public void initView() {
-
+        Sharp.loadAsset(getAssets(), "shopping.svg").into(findViewById(R.id.photoView));
     }
 
     @Override

@@ -48,15 +48,10 @@ public class PictureChooseAdapter extends RecyclerView.Adapter<PictureChooseAdap
         if (!TextUtils.isEmpty(result)){
             loader.displayImage(MyApplication.newInstance(),result,holder.imageView_pic);
         }
-        holder.imageView_pic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PhotoPreview.builder()
-                        .setPhotos(contacts)
-                        .setCurrentItem(position)
-                        .start((Activity) holder.imageView_pic.getContext());
-            }
-        });
+        holder.imageView_pic.setOnClickListener(v -> PhotoPreview.builder()
+                .setPhotos(contacts)
+                .setCurrentItem(position)
+                .start((Activity) holder.imageView_pic.getContext()));
     }
 
     @Override

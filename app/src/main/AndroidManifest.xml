@@ -177,6 +177,9 @@
         <activity android:name=".activity.UnzipActivity" />
         <activity android:name=".activity.SurfaceViewDrawActivity" />
         <activity android:name=".activity.DocumentReadingActivity" />
+        <activity android:name=".activity.SkeletonActivity" />
+        <activity android:name=".activity.SkeletonViewActivity" />
+        <activity android:name=".activity.SkeletonListViewActivity" />
         <!-- Required SDK 核心功能-->
         <!-- 可配置android:process参数将PushService放在其他进程中 -->
         <service
