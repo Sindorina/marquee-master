@@ -50,6 +50,11 @@ import com.smartpoint.util.ExampleUtil;
 import com.smartpoint.util.LogUtils;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
+import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
+import com.tencent.mm.opensdk.modelmsg.WXTextObject;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.youth.banner.Banner;
 
 import java.io.BufferedReader;
@@ -123,6 +128,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public void initView() {
         getCpuInfo();
+        regToWx();
         switchButton = findViewByIdNoCast(R.id.switchBtn);
         test = findViewById(R.id.test);
         listView = findViewById(R.id.listView);
@@ -701,6 +707,12 @@ public class MainActivity extends BaseActivity {
                 case 31://骨架默认图
                     SkeletonActivity.start(MainActivity.this);
                     break;
+                case 32://AUTO VIEW
+                    IntentUtil.openActivity(MainActivity.this,AutoViewActivity.class);
+                    break;
+                case 33://微信分享
+                    weChatShare();
+                    break;
             }
         });
     }
@@ -746,6 +758,8 @@ public class MainActivity extends BaseActivity {
         listInfo.add("人脸识别");
         listInfo.add("阅读器");
         listInfo.add("骨架默认图");
+        listInfo.add("auto View");
+        listInfo.add("weChat share");
         adapter1.getContacts().addAll(listInfo);
         adapter1.notifyDataSetChanged();
         smartRefreshLayout.finishLoadMore();
@@ -849,4 +863,39 @@ public class MainActivity extends BaseActivity {
             }
         }
     };
+
+    /**
+     * 微信分享
+     */
+    private void weChatShare(){
+        String text = "测试微信分享,1111";
+        //初始化一个 WXTextObject 对象，填写分享的文本内容
+        WXTextObject textObj = new WXTextObject();
+        textObj.text = text;
+
+        //用 WXTextObject 对象初始化一个 WXMediaMessage 对象
+        WXMediaMessage msg = new WXMediaMessage();
+        msg.mediaObject = textObj;
+        msg.description = text;
+
+        SendMessageToWX.Req req = new SendMessageToWX.Req();
+        req.transaction = String.valueOf(System.currentTimeMillis());  //transaction字段用与唯一标示一个请求
+        req.message = msg;
+        req.scene = 1;
+        //调用api接口，发送数据到微信
+        api.sendReq(req);
+    }
+    // APP_ID 替换为你的应用从官方网站申请到的合法appID
+    private static final String APP_ID = "wxebc6a5301f9f1d90";
+
+    // IWXAPI 是第三方app和微信通信的openApi接口
+    private IWXAPI api;
+
+    private void regToWx() {
+        // 通过WXAPIFactory工厂，获取IWXAPI的实例
+        api = WXAPIFactory.createWXAPI(this, APP_ID, true);
+
+        // 将应用的appId注册到微信
+        api.registerApp(APP_ID);
+    }
 }

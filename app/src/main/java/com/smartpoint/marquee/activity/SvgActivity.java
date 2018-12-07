@@ -31,6 +31,8 @@ public class SvgActivity extends BaseActivity {
     @Override
     public void initView() {
         Sharp.loadAsset(getAssets(), "shopping.svg").into(findViewById(R.id.photoView));
+//        AppCompatImageView imageView2 = findViewByIdNoCast(R.id.imageView2);
+//        imageView2.setImageResource();
     }
 
     @Override
