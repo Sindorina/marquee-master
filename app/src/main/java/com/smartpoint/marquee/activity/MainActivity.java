@@ -713,6 +713,9 @@ public class MainActivity extends BaseActivity {
                 case 33://微信分享
                     weChatShare();
                     break;
+                case 34://字母快速索引
+                    ContactActivity.start(MainActivity.this);
+                    break;
             }
         });
     }
@@ -760,6 +763,7 @@ public class MainActivity extends BaseActivity {
         listInfo.add("骨架默认图");
         listInfo.add("auto View");
         listInfo.add("weChat share");
+        listInfo.add("字母快速索引");
         adapter1.getContacts().addAll(listInfo);
         adapter1.notifyDataSetChanged();
         smartRefreshLayout.finishLoadMore();

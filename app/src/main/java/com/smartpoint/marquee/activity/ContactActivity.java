@@ -15,6 +15,8 @@ import com.smartpoint.marquee.base.BaseActivity;
 import com.smartpoint.util.LogUtils;
 import com.smartpoint.util.PingYinUtil;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -104,16 +106,15 @@ public class ContactActivity extends BaseActivity {
 //        list.add("一上线");
 //        list.add("已投入");
 //        list.add("与话题");
+        String result = getFromAssets("data.json");
+        LogUtils.logE("ContactActivity","json内容-->"+result);
         list.add("ac"); list.add("在"); list.add("呀"); list.add("吧");
         list.add("个"); list.add("额"); list.add("c"); list.add("acd");
         indexArray = new String[list.size()];
         chars = new char[list.size()];
-
         for (int i = 0; i < list.size(); i++) {
             char p = PingYinUtil.getSpells(list.get(i));
             chars[i] = p;
-
-
             Contact contact = new Contact(p +"",list.get(i));
             list2.add(contact);
         }
@@ -170,5 +171,20 @@ public class ContactActivity extends BaseActivity {
             indexArray[k] = list2.get(k).getIndex();
             LogUtils.logE("yyyy","排序后-->"+list2.get(k).toString());
         }
+    }
+
+    public String getFromAssets(String fileName){
+        try {
+            InputStreamReader inputReader = new InputStreamReader( getResources().getAssets().open(fileName) );
+            BufferedReader bufReader = new BufferedReader(inputReader);
+            String line="";
+            String Result="";
+            while((line = bufReader.readLine()) != null)
+                Result += line;
+            return Result;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }
